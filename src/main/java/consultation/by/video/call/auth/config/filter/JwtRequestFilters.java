@@ -1,6 +1,7 @@
 package consultation.by.video.call.auth.config.filter;
 
 import consultation.by.video.call.auth.config.service.JwtUtil;
+import consultation.by.video.call.auth.config.service.UserServiceImpl;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -24,8 +25,8 @@ public class JwtRequestFilters extends OncePerRequestFilter {
     private static final String EMPTY = "";
     private static final String AUTHORITIES = "authorities";
 
-//    @Autowired
-//    private UserServiceImpl userDetailService;
+    @Autowired
+    private UserServiceImpl userDetailService;
 
     @Autowired
     private JwtUtil jwtUtil;

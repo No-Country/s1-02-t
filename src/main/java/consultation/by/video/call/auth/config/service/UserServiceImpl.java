@@ -1,7 +1,18 @@
 package consultation.by.video.call.auth.config.service;
 
 
+import consultation.by.video.call.auth.config.entity.User;
+import consultation.by.video.call.auth.config.service.abstraction.IAuthenticationService;
+import consultation.by.video.call.auth.config.service.abstraction.IUserService;
+import consultation.by.video.call.auth.config.service.abstraction.IRegisterUserService;
+import consultation.by.video.call.auth.config.mapper.UserMapper;
+import consultation.by.video.call.auth.config.repository.IUserRepository;
+import consultation.by.video.call.auth.config.request.UserAuthenticatedRequest;
+import consultation.by.video.call.auth.config.request.UserRegisterRequest;
+import consultation.by.video.call.auth.config.response.UserAuthenticatedResponse;
+import consultation.by.video.call.auth.config.response.UserRegisterResponse;
 import consultation.by.video.call.auth.config.service.JwtUtil;
+import consultation.by.video.call.auth.config.service.abstraction.IRoleService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,36 +30,35 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl  {
-//    implements UserDetailsService, IRegisterUserService, IAuthenticationService, IUserService
-
+public class UserServiceImpl  implements UserDetailsService, IRegisterUserService, IAuthenticationService, IUserService  {
+//   
     private static final String USER_NOT_FOUND_MESSAGE = "User not found.";
     private static final String USER_EMAIL_ERROR = "Email address is already used.";
-//
-//    @Autowired
-//    private JwtUtil jwtUtil;
-//    @Autowired
-//    private IUserRepository userRepository;
-//
-//    @Autowired
-//    private IRoleService roleService;
-//
-//    @Autowired
-//    private UserMapper userMapper;
-//
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
-//
+
+    @Autowired
+    private JwtUtil jwtUtil;
+    @Autowired
+    private IUserRepository userRepository;
+
+    @Autowired
+    private IRoleService roleService;
+
+    @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 //    @Autowired
 //    private IClientRepository clientRepository;
-//
-//    @Autowired
-//    private AuthenticationManager authenticationManager;
-//
-//
-//
-//    @Override
-//    public UserRegisterResponse register(UserRegisterRequest request) {
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+
+
+    @Override
+    public UserRegisterResponse register(UserRegisterRequest request) {
 //        if(userRepository.findByEmail(request.getEmail()) != null){
 //            throw new RuntimeException(USER_EMAIL_ERROR);
 //        }
@@ -62,13 +72,14 @@ public class UserServiceImpl  {
 //        UserRegisterResponse userRegisterResponse = userMapper.userEntity2Dto(userCreate);
 //        userRegisterResponse.setToken(jwtUtil.generateToken(userCreate));
 //        return userRegisterResponse;
-//    }
-//
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        return getUser(username);
-//    }
-//
+        return null;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return getUser(username);
+    }
+
 //    private Client getUser(Long id) {
 //        Optional<Client> userOptional = clientRepository.findById(id);
 //        if (userOptional.isEmpty() || userOptional.get().isSoftDeleted()) {
@@ -84,51 +95,51 @@ public class UserServiceImpl  {
 //        }
 //        return user;
 //    }
-//
-//    @Override
-//    public UserAuthenticatedResponse authentication(UserAuthenticatedRequest request) {
-//        User user = getUser(request.getEmail());
-//        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPassword()));
-//        return new UserAuthenticatedResponse(jwtUtil.generateToken(user), user.getEmail(), user.getAuthorities());
-//    }
-//
-//
-//    @Override
-//    public User getInfoUser() throws NotFoundException {
-//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        if(principal instanceof User){
-//            String username = ((User)principal).getUsername();
-//        }else{
-//            String username = principal.toString();
-//        }
-//        return userRepository.findByEmail(principal.toString());
-//    }
-//
-//    @Override
-//    public void delete(Long id) throws EntityNotFoundException {
-//        Client user = getUser(id);
-//        user.setSoftDeleted(true);
-//        clientRepository.save(user);
-//    }
-//
-//    @Override
-//    public UserUpdateResponse update(Long id, UserRegisterRequest request) throws NotFoundException {
-//        Optional<Client> entity = clientRepository.findById(id);
-//        if(!entity.isPresent()){
-//            throw new ParamNotFound("error: id de Cliente no valido");
-//        }
-//        userMapper.clientEntityRefreshValues(entity.get(), request);
-//
-//        Client entitySaved = clientRepository.save(entity.get());
-//        UserUpdateResponse result = userMapper.userEntity2DtoRefresh(entitySaved);
-//        return result;
-//    }
-//
-//    @Override
-//    public ClientResponse getById(Long id) {
-//        Client client = getUser(id);
-//        return userMapper.convertTo(client);
-//    }
+
+    @Override
+    public UserAuthenticatedResponse authentication(UserAuthenticatedRequest request) {
+        User user = getUser(request.getEmail());
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPassword()));
+        return new UserAuthenticatedResponse(jwtUtil.generateToken(user), user.getEmail(), user.getAuthorities());
+    }
+
+
+    @Override
+    public User getInfoUser() throws NotFoundException {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(principal instanceof User){
+            String username = ((User)principal).getUsername();
+        }else{
+            String username = principal.toString();
+        }
+        return userRepository.findByEmail(principal.toString());
+    }
+
+    @Override
+    public void delete(Long id) throws EntityNotFoundException {
+        Client user = getUser(id);
+        user.setSoftDeleted(true);
+        clientRepository.save(user);
+    }
+
+    @Override
+    public UserUpdateResponse update(Long id, UserRegisterRequest request) throws NotFoundException {
+        Optional<Client> entity = clientRepository.findById(id);
+        if(!entity.isPresent()){
+            throw new ParamNotFound("error: id de Cliente no valido");
+        }
+        userMapper.clientEntityRefreshValues(entity.get(), request);
+
+        Client entitySaved = clientRepository.save(entity.get());
+        UserUpdateResponse result = userMapper.userEntity2DtoRefresh(entitySaved);
+        return result;
+    }
+
+    @Override
+    public ClientResponse getById(Long id) {
+        Client client = getUser(id);
+        return userMapper.convertTo(client);
+    }
 
 
 }
