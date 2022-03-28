@@ -1,4 +1,4 @@
-package consultation.by.video.call.mapper;
+package consultation.by.video.call.auth.config.mapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

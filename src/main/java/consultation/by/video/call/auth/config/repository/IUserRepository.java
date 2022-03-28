@@ -1,6 +1,6 @@
-package consultation.by.video.call.repository;
+package consultation.by.video.call.auth.config.repository;
 
-import consultation.by.video.call.model.User;
+import consultation.by.video.call.auth.config.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

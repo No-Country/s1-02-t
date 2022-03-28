@@ -1,4 +1,4 @@
-package consultation.by.video.call.security;
+package consultation.by.video.call.auth.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -70,7 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/auth/register").permitAll()
                 .antMatchers(HttpMethod.POST,"/auth/login").permitAll()
                 .antMatchers(HttpMethod.GET,"/user/{id}").permitAll()
-                .antMatchers(HttpMethod.DELETE,"/user/{id}").hasAnyAuthority("ROLE_ADMIN")//             
+                .antMatchers(HttpMethod.DELETE,"/user/{id}").permitAll()//.hasAnyAuthority("ROLE_ADMIN")//             
                 .antMatchers(publicEndpoint).permitAll()
                 .anyRequest().authenticated()
                 .and()

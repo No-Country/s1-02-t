@@ -1,7 +1,7 @@
-package consultation.by.video.call.services.abstraction;
+package consultation.by.video.call.auth.config.service;
 
 
-import consultation.by.video.call.dto.UserRegisterRequest;
+import consultation.by.video.call.auth.config.request.UserRegisterRequest;
 import javassist.NotFoundException;
 
 import javax.persistence.EntityNotFoundException;

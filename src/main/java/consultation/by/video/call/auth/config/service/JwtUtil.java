@@ -1,4 +1,4 @@
-package consultation.by.video.call.common;
+package consultation.by.video.call.auth.config.service;
 
 
 import io.jsonwebtoken.Claims;

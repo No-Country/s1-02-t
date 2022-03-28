@@ -1,7 +1,7 @@
-package consultation.by.video.call.service;
+package consultation.by.video.call.auth.config.service;
 
 
-import consultation.by.video.call.common.JwtUtil;
+import consultation.by.video.call.auth.config.service.JwtUtil;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
