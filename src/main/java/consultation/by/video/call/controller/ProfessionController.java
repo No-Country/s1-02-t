@@ -27,5 +27,16 @@ public class ProfessionController {
         return professionService.getProfessions();
     }
 
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@PathVariable Long id, @RequestBody ProfessionRequest request){
+        professionService.updateProfession(id, request);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteById(@PathVariable Long id) {
+        professionService.deleteProfession(id);
+    }
 
 }

@@ -5,6 +5,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @Getter
@@ -22,6 +23,8 @@ public class Profession {
 
     private String title;
 
+    @Lob
+    @Column
     private String description;
 
     private String imageUrl;

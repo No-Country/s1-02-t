@@ -34,4 +34,20 @@ public class ProfessionServiceImpl implements ProfessionService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public void updateProfession(Long id, ProfessionRequest request) {
+        Profession foundProfession = professionRepository.findById(id).orElseThrow();
+        foundProfession.setTitle(request.getTitle());
+        foundProfession.setDescription(request.getDescription());
+        foundProfession.setImageUrl(request.getImageUrl());
+        professionRepository.save(foundProfession);
+    }
+
+    @Override
+    public void deleteProfession(Long id) {
+        var foundProfession = professionRepository.findById(id).orElseThrow();
+        professionRepository.delete(foundProfession);
+    }
+
+
 }

@@ -11,4 +11,7 @@ public interface ProfessionService {
 
     List<ProfessionResponse> getProfessions();
 
+    void updateProfession(Long id, ProfessionRequest request);
+
+    void deleteProfession(Long id);
 }
