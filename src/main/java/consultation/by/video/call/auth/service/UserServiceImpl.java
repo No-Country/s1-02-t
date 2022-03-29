@@ -1,6 +1,8 @@
 package consultation.by.video.call.auth.service;
 
 
+import consultation.by.video.call.auth.entity.ListRole;
+import consultation.by.video.call.auth.entity.Role;
 import consultation.by.video.call.auth.entity.User;
 import consultation.by.video.call.auth.service.abstraction.IAuthenticationService;
 import consultation.by.video.call.auth.service.abstraction.IUserService;
@@ -62,17 +64,14 @@ public class UserServiceImpl  implements UserDetailsService, IRegisterUserServic
         if(userRepository.findByEmail(request.getEmail()) != null){
             throw new RuntimeException(USER_EMAIL_ERROR);
         }
-        User user = userMapper.userDto2Entity(request);
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        User user = userMapper.userDto2Entity(request);  
         List<Role> roles = new ArrayList<>();
-        roles.add(roleService.findBy(ApplicationRole.USER.getFullRoleName()));
-        user.setRoles(roles);
-
-        Client userCreate = clientRepository.save(user);
+        roles.add(roleService.findBy(ListRole.USER.getFullRoleName()));
+        user.setRoles(roles);        
+        User userCreate = userRepository.save(user);
         UserRegisterResponse userRegisterResponse = userMapper.userEntity2Dto(userCreate);
-        userRegisterResponse.setToken(jwtUtil.generateToken(userCreate));
-        return userRegisterResponse;
-        return null;
+        userRegisterResponse.setToken(jwtUtil.generateToken( userCreate));
+        return userRegisterResponse;      
     }
 
     @Override
@@ -80,13 +79,13 @@ public class UserServiceImpl  implements UserDetailsService, IRegisterUserServic
         return (UserDetails) getUser(email);
     }
 
-//    private Client getUser(Long id) {
-//        Optional<Client> userOptional = clientRepository.findById(id);
-//        if (userOptional.isEmpty() || userOptional.get().isSoftDeleted()) {
-//            throw new EntityNotFoundException(USER_NOT_FOUND_MESSAGE);
-//        }
-//        return userOptional.get();
-//    }
+    private User getUser(Long id) {
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isEmpty()) {
+            throw new EntityNotFoundException(USER_NOT_FOUND_MESSAGE);
+        }
+        return userOptional.get();
+    }
 //
     private User getUser(String email) {
         User user = userRepository.findByEmail(email);
@@ -100,7 +99,7 @@ public class UserServiceImpl  implements UserDetailsService, IRegisterUserServic
     public UserAuthenticatedResponse authentication(UserAuthenticatedRequest request) {
         User user = getUser(request.getEmail());
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPassword()));
-        return new UserAuthenticatedResponse(jwtUtil.generateToken(user), user.getEmail(), user.getAuthorities());
+        return new UserAuthenticatedResponse(jwtUtil.generateToken((UserDetails) user), user.getEmail(), user.getAuthorities());
     }
 
 
@@ -108,7 +107,7 @@ public class UserServiceImpl  implements UserDetailsService, IRegisterUserServic
     public User getInfoUser() throws NotFoundException {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(principal instanceof User){
-            String username = ((User)principal).getUsername();
+            String username = ((User) principal).getDni();
         }else{
             String username = principal.toString();
         }
@@ -117,29 +116,29 @@ public class UserServiceImpl  implements UserDetailsService, IRegisterUserServic
 
     @Override
     public void delete(Long id) throws EntityNotFoundException {
-        Client user = getUser(id);
-        user.setSoftDeleted(true);
-        clientRepository.save(user);
+        User user = getUser(id);
+       //auditoria
+        userRepository.save(user);
     }
 
-    @Override
-    public UserUpdateResponse update(Long id, UserRegisterRequest request) throws NotFoundException {
-        Optional<Client> entity = clientRepository.findById(id);
-        if(!entity.isPresent()){
-            throw new ParamNotFound("error: id de Cliente no valido");
-        }
-        userMapper.clientEntityRefreshValues(entity.get(), request);
+//    @Override
+//    public UserUpdateResponse update(Long id, UserRegisterRequest request) throws NotFoundException {
+//        Optional<User> entity = userRepository.findById(id);
+//        if(!entity.isPresent()){
+//            throw new ParamNotFound("error: id de Usuario no es valido");
+//        }
+//        userMapper.clientEntityRefreshValues(entity.get(), request);
+//
+//        Client entitySaved = clientRepository.save(entity.get());
+//        UserUpdateResponse result = userMapper.userEntity2DtoRefresh(entitySaved);
+//        return result;
+//    }
 
-        Client entitySaved = clientRepository.save(entity.get());
-        UserUpdateResponse result = userMapper.userEntity2DtoRefresh(entitySaved);
-        return result;
-    }
-
-    @Override
-    public ClientResponse getById(Long id) {
-        Client client = getUser(id);
-        return userMapper.convertTo(client);
-    }
+//    @Override
+//    public ClientResponse getById(Long id) {
+//        Client client = getUser(id);
+//        return userMapper.convertTo(client);
+//    }
 
 
 }

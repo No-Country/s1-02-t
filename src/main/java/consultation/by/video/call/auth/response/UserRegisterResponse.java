@@ -12,10 +12,11 @@ import lombok.Setter;
 public class UserRegisterResponse {
 
     private Long id;
-    private String username;
     private String email;
+    private String dni;
     private String token;
-    private String name;
+    private String firstName;
+    private String lastName;
 
 
 }

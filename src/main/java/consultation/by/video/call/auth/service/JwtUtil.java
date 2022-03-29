@@ -1,6 +1,7 @@
 package consultation.by.video.call.auth.service;
 
 
+import consultation.by.video.call.auth.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -48,10 +49,11 @@ public class JwtUtil {
         return extractExpiration(getToken(authorizationHeader)).before(new Date());
     }
 
-//    public String generateToken(UserDetails userDetails) {
-//        Client user = (Client) userDetails;
-//        return createToken(user.getUsername(), user.getRoles().get(0).getName());
-//    }
+    public String generateToken(UserDetails userDetails) {
+        User user = (User) userDetails;
+        System.out.println(user.getUsername().toUpperCase()+" - "+ user.getRoles().get(0));
+        return createToken(user.getUsername(), user.getRoles().get(0).getName());
+    }
 
     private String createToken(String subject, String role) {
         List<GrantedAuthority> grantedAuthorities = AuthorityUtils
@@ -64,7 +66,7 @@ public class JwtUtil {
                                 .collect(Collectors.toList()))
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 2)) //2 hour
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) //2 hour
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY.getBytes(StandardCharsets.UTF_8)).compact();
         return String.format(BEARER_TOKEN, token);
     }

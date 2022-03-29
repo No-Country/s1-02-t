@@ -1,5 +1,8 @@
 package consultation.by.video.call.auth.mapper;
 
+import consultation.by.video.call.auth.entity.User;
+import consultation.by.video.call.auth.request.UserRegisterRequest;
+import consultation.by.video.call.auth.response.UserRegisterResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -9,36 +12,35 @@ public class UserMapper {
 
 
 
-//    @Autowired
-//    private FileUploadService fileUploadService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
 
-//    @Autowired
-//    private ImageService imageService;
-//
-//    public Client userDto2Entity(UserRegisterRequest request) {
-//        Client user = new Client();
-//        user.setUsername(request.getUsername());
-//        user.setName(request.getName());
-//        user.setCity(request.getCity());
-//        user.setCountry(request.getCountry());
-//        user.setEmail(request.getEmail());
-//        user.setSurname(request.getSurname());
-//        user.setState(request.getState());
-//        user.setPassword(request.getPassword());
-//        return user;
-//    }
-//
-//    public UserRegisterResponse userEntity2Dto(Client user) {
-//        UserRegisterResponse userRegisterResponse = new UserRegisterResponse();
-//        userRegisterResponse.setId(user.getId());
-//        userRegisterResponse.setUsername(user.getUsername());
-//        userRegisterResponse.setEmail(user.getEmail());
-//        userRegisterResponse.setName(user.getName());
-//        return userRegisterResponse;
-//    }
+    public User userDto2Entity(UserRegisterRequest request) {
+        User user = new User();
+        user.setEmail(request.getEmail());
+        user.setAge(request.getAge());
+        user.setCity(request.getCity());
+        user.setCountry(request.getCountry());
+        user.setDni(request.getDni());
+        user.setFirstName(request.getFirst_name());
+        user.setLastName(request.getLast_name());
+        user.setImageUrl(null);
+        user.setProvince(request.getProvince());
+        user.setRoles(null);
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        return user;        
+    }
+
+    public UserRegisterResponse userEntity2Dto(User user) {
+        UserRegisterResponse userRegisterResponse = new UserRegisterResponse();
+        userRegisterResponse.setId(user.getId());
+        userRegisterResponse.setFirstName(user.getFirstName());
+        userRegisterResponse.setLastName(user.getLastName());
+        userRegisterResponse.setEmail(user.getEmail());
+        userRegisterResponse.setDni(user.getDni());
+        return userRegisterResponse;
+    }
 //
 //    public void clientEntityRefreshValues(Client client, UserRegisterRequest request) {
 //        client.setUsername(request.getUsername());
