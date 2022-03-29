@@ -1,4 +1,4 @@
-package consultation.by.video.call.auth.config.request;
+package consultation.by.video.call.auth.request;
 
 import lombok.Getter;
 import lombok.Setter;

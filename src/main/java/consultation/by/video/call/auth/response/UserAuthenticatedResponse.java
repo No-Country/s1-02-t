@@ -1,4 +1,4 @@
-package consultation.by.video.call.auth.config.response;
+package consultation.by.video.call.auth.response;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,6 +1,6 @@
 package consultation.by.video.call.auth.config;
 
-import consultation.by.video.call.auth.config.filter.JwtRequestFilters;
+import consultation.by.video.call.auth.filter.JwtRequestFilters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
@@ -17,7 +17,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 
 @EnableWebSecurity
 @Configuration
@@ -56,7 +55,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/swagger-ui.html",
             "/**/swagger-ui/**",
             "/swagger-ui"
-            
     };
 
     @Override
@@ -72,7 +70,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/auth/register").permitAll()
                 .antMatchers(HttpMethod.POST,"/auth/login").permitAll()
                 .antMatchers(HttpMethod.GET,"/user/{id}").permitAll()
-                .antMatchers(HttpMethod.DELETE,"/user/{id}").permitAll()//.hasAnyAuthority("ROLE_ADMIN")//             
+                .antMatchers(HttpMethod.DELETE,"/user/{id}").permitAll() //hasAnyAuthority("ROLE_ADMIN")
+//              
                 .antMatchers(publicEndpoint).permitAll()
                 .anyRequest().authenticated()
                 .and()

@@ -1,18 +1,18 @@
-package consultation.by.video.call.auth.config.service;
+package consultation.by.video.call.auth.service;
 
 
-import consultation.by.video.call.auth.config.entity.User;
-import consultation.by.video.call.auth.config.service.abstraction.IAuthenticationService;
-import consultation.by.video.call.auth.config.service.abstraction.IUserService;
-import consultation.by.video.call.auth.config.service.abstraction.IRegisterUserService;
-import consultation.by.video.call.auth.config.mapper.UserMapper;
-import consultation.by.video.call.auth.config.repository.IUserRepository;
-import consultation.by.video.call.auth.config.request.UserAuthenticatedRequest;
-import consultation.by.video.call.auth.config.request.UserRegisterRequest;
-import consultation.by.video.call.auth.config.response.UserAuthenticatedResponse;
-import consultation.by.video.call.auth.config.response.UserRegisterResponse;
-import consultation.by.video.call.auth.config.service.JwtUtil;
-import consultation.by.video.call.auth.config.service.abstraction.IRoleService;
+import consultation.by.video.call.auth.entity.User;
+import consultation.by.video.call.auth.service.abstraction.IAuthenticationService;
+import consultation.by.video.call.auth.service.abstraction.IUserService;
+import consultation.by.video.call.auth.service.abstraction.IRegisterUserService;
+import consultation.by.video.call.auth.mapper.UserMapper;
+import consultation.by.video.call.auth.repository.IUserRepository;
+import consultation.by.video.call.auth.request.UserAuthenticatedRequest;
+import consultation.by.video.call.auth.request.UserRegisterRequest;
+import consultation.by.video.call.auth.response.UserAuthenticatedResponse;
+import consultation.by.video.call.auth.response.UserRegisterResponse;
+import consultation.by.video.call.auth.service.JwtUtil;
+import consultation.by.video.call.auth.service.abstraction.IRoleService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -59,25 +59,25 @@ public class UserServiceImpl  implements UserDetailsService, IRegisterUserServic
 
     @Override
     public UserRegisterResponse register(UserRegisterRequest request) {
-//        if(userRepository.findByEmail(request.getEmail()) != null){
-//            throw new RuntimeException(USER_EMAIL_ERROR);
-//        }
-//        Client user = userMapper.userDto2Entity(request);
-//        user.setPassword(passwordEncoder.encode(request.getPassword()));
-//        List<Role> roles = new ArrayList<>();
-//        roles.add(roleService.findBy(ApplicationRole.USER.getFullRoleName()));
-//        user.setRoles(roles);
-//
-//        Client userCreate = clientRepository.save(user);
-//        UserRegisterResponse userRegisterResponse = userMapper.userEntity2Dto(userCreate);
-//        userRegisterResponse.setToken(jwtUtil.generateToken(userCreate));
-//        return userRegisterResponse;
+        if(userRepository.findByEmail(request.getEmail()) != null){
+            throw new RuntimeException(USER_EMAIL_ERROR);
+        }
+        User user = userMapper.userDto2Entity(request);
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        List<Role> roles = new ArrayList<>();
+        roles.add(roleService.findBy(ApplicationRole.USER.getFullRoleName()));
+        user.setRoles(roles);
+
+        Client userCreate = clientRepository.save(user);
+        UserRegisterResponse userRegisterResponse = userMapper.userEntity2Dto(userCreate);
+        userRegisterResponse.setToken(jwtUtil.generateToken(userCreate));
+        return userRegisterResponse;
         return null;
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return getUser(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return (UserDetails) getUser(email);
     }
 
 //    private Client getUser(Long id) {
@@ -88,13 +88,13 @@ public class UserServiceImpl  implements UserDetailsService, IRegisterUserServic
 //        return userOptional.get();
 //    }
 //
-//    private Client getUser(String username) {
-//        Client user = clientRepository.findByEmail(username);
-//        if (user == null) {
-//            throw new UsernameNotFoundException(USER_NOT_FOUND_MESSAGE);
-//        }
-//        return user;
-//    }
+    private User getUser(String email) {
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new UsernameNotFoundException(USER_NOT_FOUND_MESSAGE);
+        }
+        return user;
+    }
 
     @Override
     public UserAuthenticatedResponse authentication(UserAuthenticatedRequest request) {

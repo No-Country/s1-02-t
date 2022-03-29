@@ -1,7 +1,7 @@
-package consultation.by.video.call.auth.config.filter;
+package consultation.by.video.call.auth.filter;
 
-import consultation.by.video.call.auth.config.service.JwtUtil;
-import consultation.by.video.call.auth.config.service.UserServiceImpl;
+import consultation.by.video.call.auth.service.JwtUtil;
+import consultation.by.video.call.auth.service.UserServiceImpl;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;

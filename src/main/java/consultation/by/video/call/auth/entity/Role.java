@@ -1,4 +1,4 @@
-package consultation.by.video.call.auth.config.entity;
+package consultation.by.video.call.auth.entity;
 
 import java.sql.Timestamp;
 import javax.persistence.Column;

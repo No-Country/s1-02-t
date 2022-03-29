@@ -1,4 +1,4 @@
-package consultation.by.video.call.auth.config.request;
+package consultation.by.video.call.auth.request;
 
 
 import lombok.AllArgsConstructor;
@@ -17,8 +17,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class UserRegisterRequest {
 
-    @NotBlank(message = "El nombre de usuario no puede estar vacío ni ser nulo")
-    private String username;
+  
     @NotBlank (message = "El email no puede estar vacío")
     private String email;
 

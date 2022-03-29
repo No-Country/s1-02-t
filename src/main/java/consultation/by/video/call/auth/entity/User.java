@@ -1,14 +1,13 @@
-package consultation.by.video.call.auth.config.entity;
+package consultation.by.video.call.auth.entity;
 
+import consultation.by.video.call.model.entity.Patient;
+import consultation.by.video.call.model.entity.Person;
 import java.sql.Timestamp;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -21,25 +20,14 @@ import org.hibernate.annotations.CreationTimestamp;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Entity
-public class User {
-     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @NotNull
-    private String username;
+public class User extends Person {
     @NotNull
     private String password;
     @NotNull
-    private String email;
+    private String email;   
     @CreationTimestamp
-    private Timestamp timestamp;
-
-    @Column(name = "soft_deleted")
-    private boolean softDeleted = Boolean.FALSE;
-    
+    private Timestamp timestamp;  
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @Column(name = "roles_id")
     private List<Role> roles;
