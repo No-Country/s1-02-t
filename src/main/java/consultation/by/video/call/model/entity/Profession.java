@@ -23,6 +23,6 @@ public class Profession {
 
 //    TO-DO: Pedir Entidad Professional
 
-    List<Professional> professionals;
+//    List<Professional> professionals;
 
 }
