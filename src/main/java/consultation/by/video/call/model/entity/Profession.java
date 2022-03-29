@@ -6,6 +6,7 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Getter
@@ -31,6 +32,7 @@ public class Profession {
 
     private boolean deleted;
 
-//    List<Professional> professionals;
+    @ManyToMany(cascade = {CascadeType.ALL}, mappedBy = "professions")
+    List<Professional> professionals;
 
 }
