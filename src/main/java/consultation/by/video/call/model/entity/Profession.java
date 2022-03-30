@@ -20,6 +20,7 @@ public class Profession {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "profession_id")
     private Long id;
 
     private String title;
@@ -32,7 +33,6 @@ public class Profession {
 
     private boolean deleted;
 
-    @ManyToMany(cascade = {CascadeType.ALL}, mappedBy = "professions")
-    List<Professional> professionals;
+
 
 }
