@@ -19,7 +19,7 @@ public class FirebaseController {
             try {
                 String fileName = firebaseService.save(file);
                 String imageUrl = firebaseService.getImageUrl(fileName);
-                return fileName;
+                return imageUrl ;
             } catch (Exception e) {
                 System.out.println(e);
             }

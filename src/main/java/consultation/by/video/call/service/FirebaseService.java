@@ -12,6 +12,8 @@ import java.util.UUID;
 
 public interface FirebaseService {
 
+    String subirImagen(MultipartFile[] file);
+
     String getImageUrl(String name);
 
     String save(MultipartFile file) throws IOException;

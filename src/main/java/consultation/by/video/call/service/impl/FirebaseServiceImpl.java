@@ -1,8 +1,10 @@
 package consultation.by.video.call.service.impl;
 
+
 import com.google.auth.oauth2.GoogleCredentials;
-import com.google.cloud.storage.Blob;
-import com.google.cloud.storage.Bucket;
+import com.google.cloud.Identity;
+import com.google.cloud.Policy;
+import com.google.cloud.storage.*;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.StorageClient;
@@ -42,15 +44,33 @@ public class FirebaseServiceImpl implements FirebaseService {
         try {
             FileInputStream serviceAccount =
                     new FileInputStream("./serviceAccountKey.json");
+
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .setStorageBucket(properties.getBucketName())
                     .build();
+
             FirebaseApp.initializeApp(options);
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
+
+    @Override
+    public String subirImagen(MultipartFile[] files) {
+        for (MultipartFile file : files) {
+            try {
+                String fileName = this.save(file);
+                String imageUrl = this.getImageUrl(fileName);
+                return imageUrl ;
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return "Ha ocurrido un error.";
+    }
+
     @Override
     public String getImageUrl(String name) {
         return String.format(properties.imageUrl, name);
