@@ -39,6 +39,7 @@ public class UserMapper {
         userRegisterResponse.setLastName(user.getLastName());
         userRegisterResponse.setEmail(user.getEmail());
         userRegisterResponse.setDni(user.getDni());
+       
         return userRegisterResponse;
     }
 //
