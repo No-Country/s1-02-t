@@ -11,7 +11,7 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 public class ProfessionRequest {
 
-    @NotEmpty(message = "Debe ingresar un Titulo.")
+    @NotEmpty(message = "Es Requerido.")
     private String title;
 
     private String description;

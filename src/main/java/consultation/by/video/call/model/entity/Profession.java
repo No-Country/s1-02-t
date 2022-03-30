@@ -23,7 +23,7 @@ public class Profession {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty
+    @NotEmpty(message = "Poneme un Titulo amigo!")
     private String title;
 
     @Lob
