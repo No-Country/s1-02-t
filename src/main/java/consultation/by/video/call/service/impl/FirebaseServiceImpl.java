@@ -32,9 +32,7 @@ public class FirebaseServiceImpl implements FirebaseService {
     @Configuration
     @ConfigurationProperties(prefix = "firebase")
     public class Properties {
-
         private String bucketName;
-
         private String imageUrl;
     }
     @Autowired

@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -18,7 +19,7 @@ public class ProfessionController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ProfessionResponse create(@RequestBody ProfessionRequest request){
+    public ProfessionResponse create(@Valid @RequestBody ProfessionRequest request){
         return professionService.saveProfession(request);
     }
 
