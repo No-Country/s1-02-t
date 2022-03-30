@@ -68,7 +68,7 @@ public class UserServiceImpl  implements UserDetailsService, IRegisterUserServic
         List<Role> roles = new ArrayList<>();
         roles.add(roleService.findBy(ListRole.USER.getFullRoleName()));
         user.setRoles(roles);  
-          System.out.println("EL ROL ES : "+user.getRoles().get(0) );
+      //    System.out.println("EL ROL ES : "+user.getRoles().get(0) );
         User userCreate = userRepository.save(user);
         UserRegisterResponse userRegisterResponse = userMapper.userEntity2Dto(userCreate);
         userRegisterResponse.setToken(jwtUtil.generateToken( userCreate));

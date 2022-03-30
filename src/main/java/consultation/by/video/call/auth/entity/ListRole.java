@@ -2,7 +2,7 @@ package consultation.by.video.call.auth.entity;
 
 public enum ListRole {
 
-    USER("PATIENT"),
+    USER("USER"),
     ADMIN("ADMIN"),
     PROF("PROFESSIONAL");
 

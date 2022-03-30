@@ -24,6 +24,8 @@ public class Role {
     private long id;
     @NotNull
     private String name;
-    private String description;
+    private String description;    
+
+    
 
 }
