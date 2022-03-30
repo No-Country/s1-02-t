@@ -6,6 +6,7 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,7 +21,6 @@ public class Profession {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "profession_id")
     private Long id;
 
     private String title;
@@ -32,6 +32,9 @@ public class Profession {
     private String imageUrl;
 
     private boolean deleted;
+
+    @ManyToMany(cascade = {CascadeType.ALL}, mappedBy = "professions")
+    List<Professional> professionals = new ArrayList<>();
 
 
 

@@ -25,8 +25,10 @@ public class Professional extends User {
     @JoinColumn(name = "profession_id",insertable = true, updatable = true)
     private Profession profession;
 
-    @ManyToMany(cascade = {CascadeType.ALL}, mappedBy = "professionals")
-    private List<Patient> patients = new ArrayList<>();
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "professional_profession", joinColumns ={@JoinColumn(name = "idProfessional")},
+            inverseJoinColumns = {@JoinColumn(name = "idProfession")})
+    private List<Profession> professions = new ArrayList<>();
 
 
 
