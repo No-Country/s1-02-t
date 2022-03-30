@@ -50,8 +50,7 @@ public class JwtUtil {
     }
 
     public String generateToken(UserDetails userDetails) {
-        User user = (User) userDetails;
-        System.out.println(user.getUsername().toUpperCase()+" - "+ user.getRoles());
+        User user = (User) userDetails;     
         return createToken(user.getUsername(), user.getRoles().get(0).toString());
     }
 

@@ -2,6 +2,7 @@ package consultation.by.video.call.auth.mapper;
 
 import consultation.by.video.call.auth.entity.User;
 import consultation.by.video.call.auth.request.UserRegisterRequest;
+import consultation.by.video.call.auth.response.RoleResponse;
 import consultation.by.video.call.auth.response.UserRegisterResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -38,7 +39,7 @@ public class UserMapper {
         userRegisterResponse.setFirstName(user.getFirstName());
         userRegisterResponse.setLastName(user.getLastName());
         userRegisterResponse.setEmail(user.getEmail());
-        userRegisterResponse.setDni(user.getDni());
+        userRegisterResponse.setRoles(new RoleResponse(user.getRoles().get(0).getId(), user.getRoles().get(0).getName()));
        
         return userRegisterResponse;
     }

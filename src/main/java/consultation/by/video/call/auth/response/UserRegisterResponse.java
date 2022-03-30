@@ -1,6 +1,6 @@
 package consultation.by.video.call.auth.response;
 
-import consultation.by.video.call.auth.entity.Role;
+
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,11 +14,11 @@ import lombok.Setter;
 public class UserRegisterResponse {
 
     private Long id;
-    private String email;
-    private String dni;
+    private String email;  
     private String token;
     private String firstName;
     private String lastName;
+    private RoleResponse roles;
    
 
 

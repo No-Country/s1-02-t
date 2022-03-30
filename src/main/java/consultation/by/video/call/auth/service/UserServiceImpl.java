@@ -67,8 +67,7 @@ public class UserServiceImpl  implements UserDetailsService, IRegisterUserServic
         User user = userMapper.userDto2Entity(request);  
         List<Role> roles = new ArrayList<>();
         roles.add(roleService.findBy(ListRole.USER.getFullRoleName()));
-        user.setRoles(roles);  
-      //    System.out.println("EL ROL ES : "+user.getRoles().get(0) );
+        user.setRoles(roles);         
         User userCreate = userRepository.save(user);
         UserRegisterResponse userRegisterResponse = userMapper.userEntity2Dto(userCreate);
         userRegisterResponse.setToken(jwtUtil.generateToken( userCreate));
@@ -92,15 +91,17 @@ public class UserServiceImpl  implements UserDetailsService, IRegisterUserServic
         User user = userRepository.findByEmail(email);
         if (user == null) {
             throw new UsernameNotFoundException(USER_NOT_FOUND_MESSAGE);
-        }
+        }        
         return user;
     }
 
     @Override
     public UserAuthenticatedResponse authentication(UserAuthenticatedRequest request) {
+       
         User user = getUser(request.getEmail());
+        System.out.println("LLEGO ACA : "+user.getEmail()+" "+user.getRoles());
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPassword()));
-        return new UserAuthenticatedResponse(jwtUtil.generateToken((UserDetails) user), user.getEmail(), user.getAuthorities());
+        return new UserAuthenticatedResponse(jwtUtil.generateToken(user), user.getEmail(), user.getAuthorities());
     }
 
 
