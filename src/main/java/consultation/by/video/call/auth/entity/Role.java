@@ -1,14 +1,15 @@
 package consultation.by.video.call.auth.entity;
 
-import com.sun.istack.NotNull;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-
-import javax.persistence.*;
-import java.sql.Timestamp;
 
 @Getter
 @Setter
@@ -23,7 +24,5 @@ public class Role {
     private long id;
     @NotNull
     private String name;
-    private String description;
-    @CreationTimestamp
-    private Timestamp timestamp;
+    private String description; 
 }
