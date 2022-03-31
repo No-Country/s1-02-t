@@ -1,12 +1,12 @@
 package consultation.by.video.call.model.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -21,21 +21,14 @@ public class Profession {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @NotEmpty(message = "Poneme un Titulo amigo!")
     private String title;
-
     @Lob
     @Column
     private String description;
-
     private String imageUrl;
-
     private boolean deleted;
 
     @ManyToMany(cascade = {CascadeType.ALL}, mappedBy = "professions")
     List<Professional> professionals = new ArrayList<>();
-
-
-
 }
