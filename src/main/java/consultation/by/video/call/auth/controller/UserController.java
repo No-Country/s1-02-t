@@ -1,7 +1,6 @@
 package consultation.by.video.call.auth.controller;
 
 import consultation.by.video.call.auth.entity.User;
-import consultation.by.video.call.auth.response.UserResponse;
 import consultation.by.video.call.auth.service.abstraction.IUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,14 +25,18 @@ public class UserController {
 
     @GetMapping("/me")
     @ApiOperation(value = "Get info user", notes = "Return a user info")
-    public ResponseEntity<?> getMyUser() throws NotFoundException {
-        User userInstance = (User) userService.getInfoUser();      
+    public ResponseEntity<?> getMyUser() {
+        try {
+          User userInstance = (User) userService.getInfoUser();      
         return ResponseEntity.status(HttpStatus.OK).body(userService.getById(userInstance.getId()));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }   
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Get user by id", notes = "Return a user by id")
-    public ResponseEntity<?> getUserById(@PathVariable Long id) {        
+    public ResponseEntity<?> getUserById(@PathVariable Long id) {   
         return ResponseEntity.status(HttpStatus.OK).body(userService.getById(id));
     }
     
