@@ -1,15 +1,13 @@
-
 package consultation.by.video.call.model.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -18,6 +16,7 @@ import org.hibernate.annotations.Where;
 @SQLDelete(sql = "UPDATE person SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
 public class Person {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -38,7 +37,5 @@ public class Person {
 
     private String city;
 
-    private boolean deleted;    
-    
-    
+    private boolean deleted;
 }
