@@ -1,7 +1,7 @@
 # s1-02-t
 Medical consultation by video calls.
 
-<h2>Link Swagger: http://localhost:8080/swagger-ui/index.html </h2>
+<h2><a href="http://localhost:8080/swagger-ui/index.html">Link Swagger</a> </h2>
 
 
 
@@ -23,7 +23,7 @@ USERS SEED
 <td>user</td>
 </tr>
   <tr>
-<td>professional{id}@test.com{id}@test.com</td>
+<td>professional{id}@test.com</td>
 <td>professional</td>
 </tr>
 </tbody>
