@@ -36,3 +36,6 @@ build/
 /serviceAccountKey.json
 
 
+src/main/resources/application.properties
+nb-configuration.xml
+src/main/resources/application.properties
