@@ -19,13 +19,15 @@ import java.util.List;
 public class UserDatabaseSeeders {
 
 
-
-
-    private final Profession professionsList[] ={
+    private final Profession [] professionsList ={
             new Profession(1L, "Psicólogo","Tratamientos para la ansiedad, depresión, stress, parejas.",
                     null,   false, new ArrayList<>()),
-            new Profession(2L, "Oncology","Tratamientos para cancer.",
-                    null,   false, new ArrayList<>())
+            new Profession(2L, "Oncología","Es la rama de la medicina que estudia y trata las neoplasias, con especial atención a los tumores malignos o cáncer.",
+                    null,   false, new ArrayList<>()),
+            new Profession(3L, "Diabetología","Subespecialidad médica que se encarga de la prevención, diagnóstico y tratamiento de los pacientes con Diabetes, enfermedad caracterizada por el aumento de azúcar en la sangre (glicemia).",
+                    null,   false, new ArrayList<>()),
+            new Profession(4L, "Cardiología","Rama de la medicina que se encarga del estudio, diagnóstico y tratamiento de las enfermedades del corazón y del sistema circulatorio.",
+                    null,   false, new ArrayList<>()),
     };
 
     @Autowired
