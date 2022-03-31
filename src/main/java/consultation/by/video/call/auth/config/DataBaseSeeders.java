@@ -61,14 +61,14 @@ public class DataBaseSeeders {
         for (int index = 1; index < 4; index++) {
             User user = new User();
             user.setFirstName(DEFAULT_FIRST_NAME + index);
-            user.setEmail(applicationRole.getName() + index + HOST_EMAIL);
+            user.setEmail(applicationRole.getName().toLowerCase() + index + HOST_EMAIL);
             user.setPassword(passwordEncoder.encode(PASSWORD));
             user.setCity("Garin " + index);
             user.setCountry("Argentina");
             user.setLastName("Apellido" + index);
             user.setAge(41);
             user.setDni("24876987");
-            user.setProvince("Mendoza");//(applicationRole.getName() + index);
+            user.setProvince("Mendoza");
             List<Role> roles = new ArrayList<>();
             roles.add(roleRepository.findByName(applicationRole.getFullRoleName()));
             user.setRoles(roles);

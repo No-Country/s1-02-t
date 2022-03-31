@@ -34,20 +34,18 @@ public class AuthenticationController {
 //
     @PostMapping("/register")
     @ApiOperation(value = "Register user", notes = "Return a user register" )
-    public ResponseEntity<UserRegisterResponse> register(@Valid @RequestBody UserRegisterRequest request) {
-        UserRegisterResponse userRegisterResponse = registerUserService.register(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(userRegisterResponse);
+    public ResponseEntity<?> register(@Valid @RequestBody UserRegisterRequest request) {       
+        return ResponseEntity.status(HttpStatus.CREATED).body(registerUserService.register(request));
     }
-//
+
     @PostMapping("/login")
     @ApiOperation(value = "Login user", notes = "Return email, role and token" )
-    public ResponseEntity<UserAuthenticatedResponse> login(@Valid @RequestBody UserAuthenticatedRequest request){
-        UserAuthenticatedResponse response = authenticationService.authentication(request);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<?> login(@Valid @RequestBody UserAuthenticatedRequest request){       
+        return ResponseEntity.ok(authenticationService.authentication(request));
     }
-    @GetMapping("/me")
-    @ApiOperation(value = "Get infoUser", notes = "Return info User logged")
-    public ResponseEntity<User> userLogged() throws NotFoundException{
-        return new ResponseEntity<>(userService.getInfoUser(), HttpStatus.OK);
-    }
+//    @GetMapping("/me")
+//    @ApiOperation(value = "Get infoUser", notes = "Return info User logged")
+//    public ResponseEntity<User> userLogged() throws NotFoundException{
+//        return new ResponseEntity<>(userService.getInfoUser(), HttpStatus.OK);
+//    }
 }

@@ -14,7 +14,6 @@ import consultation.by.video.call.auth.request.UserRegisterRequest;
 import consultation.by.video.call.auth.response.UserAuthenticatedResponse;
 import consultation.by.video.call.auth.response.UserRegisterResponse;
 import consultation.by.video.call.auth.response.UserResponse;
-import consultation.by.video.call.auth.service.JwtUtil;
 import consultation.by.video.call.auth.service.abstraction.IRoleService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,18 +25,18 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javax.transaction.Transactional;
 
 @Service
 public class UserServiceImpl  implements UserDetailsService, IRegisterUserService, IAuthenticationService, IUserService  {
 //   
     private static final String USER_NOT_FOUND_MESSAGE = "User not found.";
     private static final String USER_EMAIL_ERROR = "Email address is already used.";
-
+    private static final String USER_LIST_ERROR = "Empty user list";
     @Autowired
     private JwtUtil jwtUtil;
     @Autowired
@@ -111,8 +110,10 @@ public class UserServiceImpl  implements UserDetailsService, IRegisterUserServic
         Object userInstance = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(userInstance instanceof User){
             String username = ((User) userInstance).getUsername();
+//            System.out.println("EL USSS ES: "+ ((User) userInstance).getUsername());
         }else{
             String username = userInstance.toString();
+//            System.out.println("ERROR NO USUARIO ISNTANCIADO:"+ ((User) userInstance).getUsername() );
         }
         System.out.println("EL USSS ES: "+ userInstance.toString());
         return userRepository.findByEmail(userInstance.toString());
@@ -141,9 +142,26 @@ public class UserServiceImpl  implements UserDetailsService, IRegisterUserServic
 
     @Override
     public UserResponse getById(Long id) {
-        User userInstance = getUser(id);
-        return userMapper.convertTo(userInstance);
+        User user= getUser(id);
+        return userMapper.convertTo(user);
+    }
+    
+    @Transactional
+    @Override
+    public List<UserResponse> getAllUser() {
+       return listAllUser(userRepository.findAll());
+        
     }
 
-
+    
+    public List<UserResponse> listAllUser(List<User> entities) {
+        List<UserResponse> listResponse = new ArrayList<>();
+        if (entities.size() == 0) {
+            throw new EntityNotFoundException(USER_LIST_ERROR);
+        }
+        for (User entity : entities) {
+            listResponse.add(userMapper.convertTo(entity));
+        }
+        return listResponse;
+    }
 }

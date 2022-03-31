@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,9 +26,22 @@ public class UserController {
 
     @GetMapping("/me")
     @ApiOperation(value = "Get info user", notes = "Return a user info")
-    public ResponseEntity<UserResponse> getMyUser() throws NotFoundException {
-        User userInstance = (User) userService.getInfoUser();
-        UserResponse response = userService.getById(userInstance.getId());
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+    public ResponseEntity<?> getMyUser() throws NotFoundException {
+        User userInstance = (User) userService.getInfoUser();      
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getById(userInstance.getId()));
     }
+
+    @GetMapping("/{id}")
+    @ApiOperation(value = "Get user by id", notes = "Return a user by id")
+    public ResponseEntity<?> getUserById(@PathVariable Long id) {        
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getById(id));
+    }
+    
+    @GetMapping("/all")
+    @ApiOperation(value = "Get all users", notes = "Return list users")
+    public ResponseEntity<?> getAllUser() {     
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUser());
+    }
+    
+   
 }
