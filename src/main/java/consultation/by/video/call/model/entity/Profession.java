@@ -7,6 +7,7 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -35,6 +36,8 @@ public class Profession {
     private boolean deleted;
 
     @ManyToMany(cascade = {CascadeType.ALL}, mappedBy = "professions")
-    List<Professional> professionals;
+    List<Professional> professionals = new ArrayList<>();
+
+
 
 }
