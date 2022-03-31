@@ -1,6 +1,10 @@
 # s1-02-t
 Medical consultation by video calls.
 
+<h2>Link Swagger: http://localhost:8080/swagger-ui/index.html </h2>
+
+
+
 USERS SEED
 <table>
 <thead>
