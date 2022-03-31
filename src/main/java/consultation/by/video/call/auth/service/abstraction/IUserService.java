@@ -3,8 +3,8 @@ package consultation.by.video.call.auth.service.abstraction;
 
 import consultation.by.video.call.auth.entity.User;
 import consultation.by.video.call.auth.request.UserRegisterRequest;
+import consultation.by.video.call.auth.response.UserResponse;
 import javassist.NotFoundException;
-
 import javax.persistence.EntityNotFoundException;
 
 public interface IUserService {
@@ -14,6 +14,5 @@ public interface IUserService {
 
 //    UserUpdateResponse update(Long id, UserRegisterRequest request)throws NotFoundException;
 
-//
-//    ClientResponse getById(Long id);
+    UserResponse getById(Long id);
 }

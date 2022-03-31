@@ -4,6 +4,7 @@ import consultation.by.video.call.auth.entity.User;
 import consultation.by.video.call.auth.request.UserRegisterRequest;
 import consultation.by.video.call.auth.response.RoleResponse;
 import consultation.by.video.call.auth.response.UserRegisterResponse;
+import consultation.by.video.call.auth.response.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -72,18 +73,20 @@ public class UserMapper {
 //        return dto;
 //    }
 //
-//    public ClientResponse convertTo(Client client) {
-//        ClientResponse clientResponse = new ClientResponse();
-//        clientResponse.setId(client.getId());
-//        clientResponse.setName(client.getName());
-//        clientResponse.setUsername(client.getUsername());
-//        clientResponse.setCity(client.getCity());
-//        clientResponse.setCountry(client.getCountry());
-//        clientResponse.setEmail(client.getEmail());
-//        clientResponse.setPassword(client.getPassword());
-//        clientResponse.setState(client.getState());
-//        clientResponse.setSurname(clientResponse.getSurname());
-//
-//        return clientResponse;
-//    }
+    public UserResponse convertTo(User userInstance) {
+        UserResponse userResponse = new UserResponse();
+        userResponse.setId(userInstance.getId());
+        userResponse.setFirt_name(userInstance.getFirstName());
+        userResponse.setAge(userInstance.getAge() );
+        userResponse.setDni(userInstance.getDni());
+        userResponse.setLast_name(userInstance.getLastName());        
+        userResponse.setUsername(userInstance.getUsername());
+        userResponse.setCity(userInstance.getCity());
+        userResponse.setCountry(userInstance.getCountry());
+        userResponse.setEmail(userInstance.getEmail());
+        userResponse.setPassword(userInstance.getPassword());
+        userResponse.setImage_url(userInstance.getImageUrl());
+        userResponse.setProvince(userInstance.getProvince());
+        return userResponse;
+    }
 }

@@ -13,6 +13,7 @@ import consultation.by.video.call.auth.request.UserAuthenticatedRequest;
 import consultation.by.video.call.auth.request.UserRegisterRequest;
 import consultation.by.video.call.auth.response.UserAuthenticatedResponse;
 import consultation.by.video.call.auth.response.UserRegisterResponse;
+import consultation.by.video.call.auth.response.UserResponse;
 import consultation.by.video.call.auth.service.JwtUtil;
 import consultation.by.video.call.auth.service.abstraction.IRoleService;
 import javassist.NotFoundException;
@@ -107,18 +108,20 @@ public class UserServiceImpl  implements UserDetailsService, IRegisterUserServic
 
     @Override
     public User getInfoUser() throws NotFoundException {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(principal instanceof User){
-            String username = ((User) principal).getDni();
+        Object userInstance = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(userInstance instanceof User){
+            String username = ((User) userInstance).getUsername();
         }else{
-            String username = principal.toString();
+            String username = userInstance.toString();
         }
-        return userRepository.findByEmail(principal.toString());
+        System.out.println("EL USSS ES: "+ userInstance.toString());
+        return userRepository.findByEmail(userInstance.toString());
     }
 
     @Override
     public void delete(Long id) throws EntityNotFoundException {
         User user = getUser(id);
+        user.setDeleted(true);
        //auditoria
         userRepository.save(user);
     }
@@ -136,11 +139,11 @@ public class UserServiceImpl  implements UserDetailsService, IRegisterUserServic
 //        return result;
 //    }
 
-//    @Override
-//    public ClientResponse getById(Long id) {
-//        Client client = getUser(id);
-//        return userMapper.convertTo(client);
-//    }
+    @Override
+    public UserResponse getById(Long id) {
+        User userInstance = getUser(id);
+        return userMapper.convertTo(userInstance);
+    }
 
 
 }
