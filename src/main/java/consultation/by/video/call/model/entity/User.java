@@ -1,4 +1,4 @@
-package consultation.by.video.call.auth.entity;
+package consultation.by.video.call.model.entity;
 
 
 import consultation.by.video.call.model.entity.Person;
@@ -32,15 +32,15 @@ public class User extends Person implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    protected Long id;
     @NotNull
-    private String password;
+    protected String password;
     @NotNull
-    private String email;
+    protected String email;
     @CreationTimestamp
-    private Timestamp timestamp;
+    protected Timestamp timestamp;
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    private List<Role> roles;
+    protected List<Role> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

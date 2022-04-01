@@ -1,7 +1,6 @@
 
 package consultation.by.video.call.model.entity;
 
-import consultation.by.video.call.auth.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 

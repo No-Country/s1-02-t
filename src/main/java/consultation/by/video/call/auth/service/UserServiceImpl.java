@@ -2,8 +2,8 @@ package consultation.by.video.call.auth.service;
 
 
 import consultation.by.video.call.auth.entity.ListRole;
-import consultation.by.video.call.auth.entity.Role;
-import consultation.by.video.call.auth.entity.User;
+import consultation.by.video.call.model.entity.Role;
+import consultation.by.video.call.model.entity.User;
 import consultation.by.video.call.auth.service.abstraction.IAuthenticationService;
 import consultation.by.video.call.auth.service.abstraction.IUserService;
 import consultation.by.video.call.auth.service.abstraction.IRegisterUserService;

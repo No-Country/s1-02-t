@@ -1,6 +1,6 @@
 package consultation.by.video.call.auth.controller;
 
-import consultation.by.video.call.auth.entity.User;
+import consultation.by.video.call.model.entity.User;
 import consultation.by.video.call.auth.request.UserAuthenticatedRequest;
 import consultation.by.video.call.auth.request.UserRegisterRequest;
 import consultation.by.video.call.auth.response.UserAuthenticatedResponse;
