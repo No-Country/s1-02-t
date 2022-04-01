@@ -1,6 +1,5 @@
 package consultation.by.video.call.model.entity;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,23 +18,14 @@ public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String firstName;
-
-    private String lastName;
-
-    private int age;
-
-    private String dni;
-
-    private String imageUrl;
-
-    private String country;
-
-    private String province;
-
-    private String city;
-
-    private boolean deleted;
+    protected Long id;
+    protected String firstName;
+    protected String lastName;
+    protected int age;
+    protected String dni;
+    protected String imageUrl;
+    protected String country;
+    protected String province;
+    protected String city;
+    protected boolean deleted;
 }

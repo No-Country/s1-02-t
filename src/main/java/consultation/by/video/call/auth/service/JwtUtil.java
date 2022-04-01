@@ -1,7 +1,7 @@
 package consultation.by.video.call.auth.service;
 
 
-import consultation.by.video.call.auth.entity.User;
+import consultation.by.video.call.model.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

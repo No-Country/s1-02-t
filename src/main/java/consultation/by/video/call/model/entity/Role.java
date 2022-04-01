@@ -1,4 +1,4 @@
-package consultation.by.video.call.auth.entity;
+package consultation.by.video.call.model.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
