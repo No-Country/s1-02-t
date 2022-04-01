@@ -11,10 +11,14 @@ import consultation.by.video.call.auth.mapper.UserMapper;
 import consultation.by.video.call.auth.repository.IUserRepository;
 import consultation.by.video.call.auth.request.UserAuthenticatedRequest;
 import consultation.by.video.call.auth.request.UserRegisterRequest;
+import consultation.by.video.call.auth.request.UserRequest;
+import consultation.by.video.call.auth.response.RoleResponse;
 import consultation.by.video.call.auth.response.UserAuthenticatedResponse;
 import consultation.by.video.call.auth.response.UserRegisterResponse;
 import consultation.by.video.call.auth.response.UserResponse;
+import consultation.by.video.call.auth.response.UserRoleResponse;
 import consultation.by.video.call.auth.service.abstraction.IRoleService;
+import consultation.by.video.call.exception.ParamNotFound;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -50,9 +54,6 @@ public class UserServiceImpl  implements UserDetailsService, IRegisterUserServic
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-//    @Autowired
-//    private IClientRepository clientRepository;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -109,12 +110,10 @@ public class UserServiceImpl  implements UserDetailsService, IRegisterUserServic
     public User getInfoUser() throws NotFoundException {
         Object userInstance = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(userInstance instanceof User){
-            String username = ((User) userInstance).getUsername();
-//            System.out.println("EL USSS ES: "+ ((User) userInstance).getUsername());
+            String username = ((User) userInstance).getUsername();//            
         }else{
             String username = userInstance.toString();
-//            System.out.println("ERROR NO USUARIO ISNTANCIADO:"+ ((User) userInstance).getUsername() );
-        }
+      }
         System.out.println("EL USSS ES: "+ userInstance.toString());
         return userRepository.findByEmail(userInstance.toString());
     }
@@ -127,19 +126,31 @@ public class UserServiceImpl  implements UserDetailsService, IRegisterUserServic
         userRepository.save(user);
     }
 
-//    @Override
-//    public UserUpdateResponse update(Long id, UserRegisterRequest request) throws NotFoundException {
-//        Optional<User> entity = userRepository.findById(id);
-//        if(!entity.isPresent()){
-//            throw new ParamNotFound("error: id de Usuario no es valido");
-//        }
-//        userMapper.clientEntityRefreshValues(entity.get(), request);
-//
-//        Client entitySaved = clientRepository.save(entity.get());
-//        UserUpdateResponse result = userMapper.userEntity2DtoRefresh(entitySaved);
-//        return result;
-//    }
+    @Override
+    public UserResponse update(Long id, UserRequest request) throws NotFoundException {
+        Optional<User> entity = userRepository.findById(id);
+        if(!entity.isPresent()){
+            throw new ParamNotFound("error: id Username is not valido");
+        }        
+        User entitySaved = userRepository.save(userMapper.userDtoEntity(entity.get(), request));
+        return userMapper.convertTo(entitySaved);
+    }
 
+    
+    @Override
+    public UserRoleResponse updateRole(Long id, String roleName){
+          Optional<User> entity = userRepository.findById(id);
+          if(!entity.isPresent()){
+            throw new ParamNotFound("error: id Username is not valido");
+           }           
+           entity.get().getRoles().add(roleService.findBy(roleName));
+           userRepository.save(entity.get());
+           
+          return userMapper.convertToUserRole(entity.get());
+    }
+    
+    
+    
     @Override
     public UserResponse getById(Long id) {
         User user= getUser(id);
