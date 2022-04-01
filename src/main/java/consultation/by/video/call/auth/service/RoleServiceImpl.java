@@ -1,6 +1,6 @@
 package consultation.by.video.call.auth.service;
 
-import consultation.by.video.call.auth.entity.Role;
+import consultation.by.video.call.model.entity.Role;
 import consultation.by.video.call.auth.repository.IRoleRepository;
 import consultation.by.video.call.auth.service.abstraction.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
