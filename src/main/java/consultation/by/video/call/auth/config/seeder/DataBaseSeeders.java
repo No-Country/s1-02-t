@@ -1,4 +1,4 @@
-package consultation.by.video.call.auth.config;
+package consultation.by.video.call.auth.config.seeder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
