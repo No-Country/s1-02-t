@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/professional")
 @Api(value = "Authenticate professional", description = "This API has a Authenticated for professional")
 public class ProfessionalController {
