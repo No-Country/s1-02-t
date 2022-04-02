@@ -47,7 +47,6 @@ public class DataBaseSeeders {
         createRole(1L, ListRole.USER);
         createRole(2L, ListRole.ADMIN);
         createRole(3L, ListRole.PROFESSIONAL);
-
     }
 
     private void createUsers() {
