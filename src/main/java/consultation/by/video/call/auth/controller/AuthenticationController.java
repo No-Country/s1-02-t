@@ -1,16 +1,12 @@
 package consultation.by.video.call.auth.controller;
 
-import consultation.by.video.call.model.entity.User;
 import consultation.by.video.call.auth.request.UserAuthenticatedRequest;
 import consultation.by.video.call.auth.request.UserRegisterRequest;
-import consultation.by.video.call.auth.response.UserAuthenticatedResponse;
-import consultation.by.video.call.auth.response.UserRegisterResponse;
 import consultation.by.video.call.auth.service.abstraction.IAuthenticationService;
 import consultation.by.video.call.auth.service.abstraction.IRegisterUserService;
 import consultation.by.video.call.auth.service.abstraction.IUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,6 +39,7 @@ public class AuthenticationController {
     public ResponseEntity<?> login(@Valid @RequestBody UserAuthenticatedRequest request){       
         return ResponseEntity.ok(authenticationService.authentication(request));
     }
+
 //    @GetMapping("/me")
 //    @ApiOperation(value = "Get infoUser", notes = "Return info User logged")
 //    public ResponseEntity<User> userLogged() throws NotFoundException{

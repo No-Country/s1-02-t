@@ -17,4 +17,5 @@ public class UserAuthenticatedRequest {
     @NotBlank(message = "Password cannot be empty")
     @Size(min = 8, max = 250, message = "Password should have at least 8 characters")
     private String password;
+
 }
