@@ -1,6 +1,8 @@
 package consultation.by.video.call.controller;
 
+import consultation.by.video.call.model.request.ProfessionalAuthenticatedRequest;
 import consultation.by.video.call.model.request.ProfessionalRequest;
+import consultation.by.video.call.model.response.ProfessionalAuthenticatedResponse;
 import consultation.by.video.call.model.response.ProfessionalResponse;
 import consultation.by.video.call.service.ProfessionalService;
 import io.swagger.annotations.Api;
@@ -10,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.validation.Valid;
 
 
 @RestController
@@ -26,6 +30,13 @@ public class ProfessionalController {
     public ResponseEntity<ProfessionalResponse> registerProfessional(@ModelAttribute ProfessionalRequest request, MultipartFile[] file){
         ProfessionalResponse response = service.registerProfessional(request, file);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @PostMapping("/login")
+    @ApiOperation(value = "Login Professional", notes = "Return token, email, roleName" )
+    public ResponseEntity<ProfessionalAuthenticatedResponse> login(@Valid @RequestBody ProfessionalAuthenticatedRequest request){
+        ProfessionalAuthenticatedResponse response = service.authentication(request);
+        return ResponseEntity.ok(response);
     }
 
 }

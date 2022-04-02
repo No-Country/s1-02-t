@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -44,9 +45,8 @@ public class UserDatabaseSeeders {
     }
 
     private void createProfessions() {
-       for(Profession p: professionsList){
-           professionRepository.save(p);
-       }
-    }
+        Arrays.stream(professionsList).forEach(
+                profession -> professionRepository.save(profession));
+    };
 
 }
