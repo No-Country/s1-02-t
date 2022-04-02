@@ -33,11 +33,15 @@ public class UserDatabaseSeeders {
 
     @EventListener
     public void seed(ContextRefreshedEvent event){
-        if(professionRepository.findAll().isEmpty()){
-            for(Profession p: professionsList){
-                professionRepository.save(p);
-            }
-        }
+        List<Profession> professions = professionRepository.findAll();
+        if(professions.isEmpty())
+            createProfessions();
     }
+
+    private void createProfessions() {
+        Arrays.stream(professionsList).forEach(
+                profession -> professionRepository.save(profession));
+    };
+
 
 }

@@ -6,13 +6,17 @@ import consultation.by.video.call.auth.service.abstraction.IRoleService;
 import consultation.by.video.call.model.entity.Professional;
 import consultation.by.video.call.model.entity.Role;
 import consultation.by.video.call.model.mapper.ProfessionalMapper;
+import consultation.by.video.call.model.request.ProfessionalAuthenticatedRequest;
 import consultation.by.video.call.model.request.ProfessionalRequest;
+import consultation.by.video.call.model.response.ProfessionalAuthenticatedResponse;
 import consultation.by.video.call.model.response.ProfessionalResponse;
 import consultation.by.video.call.repository.ProfessionRepository;
 import consultation.by.video.call.repository.ProfessionalRepository;
 import consultation.by.video.call.service.ProfessionalService;
 import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,6 +37,8 @@ public class ProfessionalServiceImpl implements ProfessionalService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private IRoleService roleService;
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     @Override
     public ProfessionalResponse registerProfessional(ProfessionalRequest request, MultipartFile[] file) {
@@ -48,5 +54,21 @@ public class ProfessionalServiceImpl implements ProfessionalService {
         response.setToken(jwtUtil.generateToken(saved));
 
         return response;
+    }
+
+    @Override
+    public ProfessionalAuthenticatedResponse authentication(ProfessionalAuthenticatedRequest request) {
+        Professional professional = getProfessional(request.getEmail());
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPassword()));
+
+        return new ProfessionalAuthenticatedResponse(jwtUtil.generateToken(professional), professional.getEmail(), professional.getAuthorities());
+    }
+
+    private Professional getProfessional(String email) {
+        Professional professional = professionalRepository.findByEmail(email);
+        if(professional == null){
+            throw new RuntimeException("Professional no registrado");
+        }
+        return professional;
     }
 }
