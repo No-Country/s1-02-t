@@ -37,8 +37,10 @@ public class UserServiceImpl  implements UserDetailsService, IRegisterUserServic
     private static final String USER_NOT_FOUND_MESSAGE = "User not found.";
     private static final String USER_EMAIL_ERROR = "Email address is already used.";
     private static final String USER_LIST_ERROR = "Empty user list";
+
     @Autowired
     private JwtUtil jwtUtil;
+
     @Autowired
     private IUserRepository userRepository;
 
@@ -56,8 +58,6 @@ public class UserServiceImpl  implements UserDetailsService, IRegisterUserServic
 
     @Autowired
     private AuthenticationManager authenticationManager;
-
-
 
     @Override
     public UserRegisterResponse register(UserRegisterRequest request) {

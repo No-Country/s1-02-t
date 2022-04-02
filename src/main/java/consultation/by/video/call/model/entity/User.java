@@ -33,12 +33,16 @@ public class User extends Person implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
+
     @NotNull
     protected String password;
+
     @NotNull
     protected String email;
+
     @CreationTimestamp
     protected Timestamp timestamp;
+
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     protected List<Role> roles;
 
@@ -72,7 +76,7 @@ public class User extends Person implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-
     }
+
 }
 
