@@ -6,12 +6,17 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
 @Entity
+@SQLDelete(sql = "UPDATE professional SET deleted = true WHERE id=?")
+@Where(clause = "deleted = false")
 @NoArgsConstructor
 @Getter @Setter
 public class Professional extends User {
@@ -25,7 +30,6 @@ public class Professional extends User {
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "profession_id", insertable = true, updatable = true)
-   // @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Profession professions;
 
 

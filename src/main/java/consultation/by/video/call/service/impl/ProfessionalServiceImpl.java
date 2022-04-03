@@ -21,8 +21,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProfessionalServiceImpl implements ProfessionalService {
@@ -52,7 +54,6 @@ public class ProfessionalServiceImpl implements ProfessionalService {
         Professional saved = professionalRepository.save(professional);
         ProfessionalResponse response = professionalMapper.toDto(saved);
         response.setToken(jwtUtil.generateToken(saved));
-
         return response;
     }
 
@@ -92,6 +93,21 @@ public class ProfessionalServiceImpl implements ProfessionalService {
            }
 
         return response;
+    }
+
+    @Override
+    public void deleted(Long id) throws EntityNotFoundException {
+        Professional p = getProfessional(id);
+        p.setDeleted(true);
+        professionalRepository.save(p);
+    }
+
+    private Professional getProfessional(Long id){
+        Optional<Professional> professional = professionalRepository.findById(id);
+        if(professional.isEmpty() || professional.get().isDeleted()){
+            throw new RuntimeException("professional no registrado");
+        }
+        return professional.get();
     }
 
     private Professional getProfessional(String email) {

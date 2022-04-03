@@ -1,6 +1,6 @@
 package consultation.by.video.call.controller;
 
-import consultation.by.video.call.model.entity.Professional;
+
 import consultation.by.video.call.model.request.ProfessionalAuthenticatedRequest;
 import consultation.by.video.call.model.request.ProfessionalRequest;
 import consultation.by.video.call.model.response.ProfessionalAuthenticatedResponse;
@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -66,6 +67,12 @@ public class ProfessionalController {
         List<ProfessionalListResponse> professionals = service.getByFilters(email,first_name,last_name,dni);
         return ResponseEntity.ok().body(professionals);
 
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleted(@PathVariable Long id)throws EntityNotFoundException {
+        service.deleted(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }
