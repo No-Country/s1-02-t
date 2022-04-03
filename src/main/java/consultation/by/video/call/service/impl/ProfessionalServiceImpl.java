@@ -7,14 +7,13 @@ import consultation.by.video.call.model.entity.Professional;
 import consultation.by.video.call.model.entity.Role;
 import consultation.by.video.call.model.mapper.ProfessionalMapper;
 import consultation.by.video.call.model.request.ProfessionalAuthenticatedRequest;
+import consultation.by.video.call.model.request.ProfessionalFiltersRequest;
 import consultation.by.video.call.model.request.ProfessionalRequest;
 import consultation.by.video.call.model.response.ProfessionalAuthenticatedResponse;
 import consultation.by.video.call.model.response.ProfessionalListResponse;
 import consultation.by.video.call.model.response.ProfessionalResponse;
-import consultation.by.video.call.repository.ProfessionRepository;
 import consultation.by.video.call.repository.ProfessionalRepository;
 import consultation.by.video.call.service.ProfessionalService;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -78,6 +77,21 @@ public class ProfessionalServiceImpl implements ProfessionalService {
         List<ProfessionalListResponse> result = professionalMapper.toDtoListById(professionals, professionId);
         return result;
 
+    }
+
+    @Override
+    public List<ProfessionalListResponse> getByFilters(String email, String first_name, String last_name, String dni) {
+        ProfessionalFiltersRequest filtersDto = new ProfessionalFiltersRequest(email,first_name,last_name,dni);
+        List<ProfessionalListResponse> response = new ArrayList<>();
+        List<Professional> professionals = professionalRepository.findAll();
+           for (Professional p: professionals){
+               if(p.getEmail().equals(filtersDto.getEmail()) || p.getFirstName().equals(filtersDto.getFirst_name()) ||
+               p.getLastName().equals(filtersDto.getLast_name()) || p.getDni().equals(filtersDto.getDni())){
+                   response.add(professionalMapper.professionalEntityBasicDto(p));
+               }
+           }
+
+        return response;
     }
 
     private Professional getProfessional(String email) {
