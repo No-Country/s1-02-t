@@ -72,6 +72,14 @@ public class ProfessionalServiceImpl implements ProfessionalService {
         return response;
     }
 
+    @Override
+    public List<ProfessionalListResponse> getProfessionalByProfessionalId(Long professionId) {
+        List<Professional> professionals = professionalRepository.findAll();
+        List<ProfessionalListResponse> result = professionalMapper.toDtoListById(professionals, professionId);
+        return result;
+
+    }
+
     private Professional getProfessional(String email) {
         Professional professional = professionalRepository.findByEmail(email);
         if(professional == null){
