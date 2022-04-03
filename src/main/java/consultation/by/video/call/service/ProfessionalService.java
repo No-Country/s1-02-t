@@ -21,4 +21,6 @@ public interface ProfessionalService {
     List<ProfessionalListResponse> getProfessionalByProfessionalId(Long professionId);
 
     List<ProfessionalListResponse> getByFilters(String email, String first_name, String last_name, String dni);
+
+    void deleted(Long id);
 }
