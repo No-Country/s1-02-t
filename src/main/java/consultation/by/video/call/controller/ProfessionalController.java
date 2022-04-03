@@ -1,5 +1,6 @@
 package consultation.by.video.call.controller;
 
+import consultation.by.video.call.model.entity.Professional;
 import consultation.by.video.call.model.request.ProfessionalAuthenticatedRequest;
 import consultation.by.video.call.model.request.ProfessionalRequest;
 import consultation.by.video.call.model.response.ProfessionalAuthenticatedResponse;
@@ -54,6 +55,17 @@ public class ProfessionalController {
         return ResponseEntity.ok().body(responses);
     }
 
+    @GetMapping("")
+    public ResponseEntity<List<ProfessionalListResponse>> getDetailByFilters(
+            @RequestParam(required = false) String email,
+            @RequestParam(required = false) String first_name,
+            @RequestParam(required = false) String last_name,
+            @RequestParam(required = false) String dni
 
+    ){
+        List<ProfessionalListResponse> professionals = service.getByFilters(email,first_name,last_name,dni);
+        return ResponseEntity.ok().body(professionals);
+
+    }
 
 }
