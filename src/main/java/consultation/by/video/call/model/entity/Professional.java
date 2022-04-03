@@ -1,6 +1,7 @@
 package consultation.by.video.call.model.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,7 @@ public class Professional extends User {
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "profession_id", insertable = true, updatable = true)
+   // @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Profession professions;
 
 

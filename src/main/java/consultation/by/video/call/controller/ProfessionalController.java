@@ -3,6 +3,7 @@ package consultation.by.video.call.controller;
 import consultation.by.video.call.model.request.ProfessionalAuthenticatedRequest;
 import consultation.by.video.call.model.request.ProfessionalRequest;
 import consultation.by.video.call.model.response.ProfessionalAuthenticatedResponse;
+import consultation.by.video.call.model.response.ProfessionalListResponse;
 import consultation.by.video.call.model.response.ProfessionalResponse;
 import consultation.by.video.call.service.ProfessionalService;
 import io.swagger.annotations.Api;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 @RestController
@@ -38,5 +40,12 @@ public class ProfessionalController {
         ProfessionalAuthenticatedResponse response = service.authentication(request);
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<ProfessionalListResponse>> getAllProfessionals(){
+        List<ProfessionalListResponse> response = service.getAllProfessionals();
+        return ResponseEntity.ok().body(response);
+    }
+
 
 }

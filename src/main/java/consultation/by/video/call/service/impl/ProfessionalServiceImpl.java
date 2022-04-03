@@ -9,6 +9,7 @@ import consultation.by.video.call.model.mapper.ProfessionalMapper;
 import consultation.by.video.call.model.request.ProfessionalAuthenticatedRequest;
 import consultation.by.video.call.model.request.ProfessionalRequest;
 import consultation.by.video.call.model.response.ProfessionalAuthenticatedResponse;
+import consultation.by.video.call.model.response.ProfessionalListResponse;
 import consultation.by.video.call.model.response.ProfessionalResponse;
 import consultation.by.video.call.repository.ProfessionRepository;
 import consultation.by.video.call.repository.ProfessionalRepository;
@@ -62,6 +63,13 @@ public class ProfessionalServiceImpl implements ProfessionalService {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPassword()));
 
         return new ProfessionalAuthenticatedResponse(jwtUtil.generateToken(professional), professional.getEmail(), professional.getAuthorities());
+    }
+
+    @Override
+    public List<ProfessionalListResponse> getAllProfessionals() {
+        List<Professional> professionals = professionalRepository.findAll();
+        List<ProfessionalListResponse> response = professionalMapper.toDtoList(professionals);
+        return response;
     }
 
     private Professional getProfessional(String email) {

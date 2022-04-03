@@ -80,6 +80,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE,"/profession/{id}").permitAll()
                 .antMatchers(HttpMethod.POST,"/professional/register").permitAll()
                 .antMatchers(HttpMethod.POST,"/professional/login").permitAll()
+                .antMatchers(HttpMethod.GET,"/professional/all").permitAll()
                 .antMatchers(publicEndpoint).permitAll()
                 .anyRequest().authenticated()
                 .and()

@@ -5,6 +5,7 @@ import consultation.by.video.call.model.entity.Profession;
 import consultation.by.video.call.model.entity.Professional;
 import consultation.by.video.call.model.entity.User;
 import consultation.by.video.call.model.request.ProfessionalRequest;
+import consultation.by.video.call.model.response.ProfessionalListResponse;
 import consultation.by.video.call.model.response.ProfessionalResponse;
 import consultation.by.video.call.service.FirebaseService;
 import consultation.by.video.call.service.ProfessionService;
@@ -12,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class ProfessionalMapper {
@@ -51,5 +55,29 @@ public class ProfessionalMapper {
         response.setId(saved.getId());
         response.setImageUrl(saved.getImageUrl());
         return response;
+    }
+
+    public List<ProfessionalListResponse> toDtoList(List<Professional> professionals) {
+        List<ProfessionalListResponse> responses = new ArrayList<>();
+        ProfessionalListResponse response;
+        for(Professional p: professionals){
+            response = new ProfessionalListResponse();
+            response.setId(p.getId());
+            response.setAge(p.getAge());
+            response.setCity(p.getCity());
+            response.setEmail(p.getEmail());
+            response.setDni(p.getDni());
+            response.setCountry(p.getCountry());
+            response.setEnrollment(p.getEnrollment());
+            response.setConsultationPrice(p.getConsultationPrice());
+            response.setFirst_name(p.getFirstName());
+            response.setImage_url(p.getImageUrl());
+            response.setProvince(p.getProvince());
+            response.setLast_name(p.getLastName());
+            response.setPassword(p.getPassword());
+            response.setProfession(p.getProfessions());
+            responses.add(response);
+        }
+        return responses;
     }
 }
