@@ -1,4 +1,4 @@
-package consultation.by.video.call.auth.request;
+package consultation.by.video.call.model.request;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,9 +7,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-@Getter @Setter
-public class UserAuthenticatedRequest {
-
+@Getter
+@Setter
+public class ProfessionalAuthenticatedRequest {
     @Email(message = "Email should have a valid format")
     @NotBlank(message = "Email cannot be empty.")
     private String email;
@@ -17,5 +17,4 @@ public class UserAuthenticatedRequest {
     @NotBlank(message = "Password cannot be empty")
     @Size(min = 8, max = 250, message = "Password should have at least 8 characters")
     private String password;
-
 }
