@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class ProfessionalMapper {
@@ -79,5 +80,34 @@ public class ProfessionalMapper {
             responses.add(response);
         }
         return responses;
+    }
+
+    public List<ProfessionalListResponse> toDtoListById(List<Professional> professionals, Long professionId) {
+        List<ProfessionalListResponse> responses = new ArrayList<>();
+        for(Professional p: professionals){
+            if(p.getProfessions().getId() == professionId){
+                responses.add(professionalEntityBasicDto(p));
+            }
+        }
+        return responses;
+
+
+    }
+
+    public ProfessionalListResponse professionalEntityBasicDto(Professional p){
+        ProfessionalListResponse response = new ProfessionalListResponse();
+        response.setId(p.getId());
+        response.setAge(p.getAge());
+        response.setCity(p.getCity());
+        response.setEmail(p.getEmail());
+        response.setDni(p.getDni());
+        response.setCountry(p.getCountry());
+        response.setEnrollment(p.getEnrollment());
+        response.setConsultationPrice(p.getConsultationPrice());
+        response.setFirst_name(p.getFirstName());
+        response.setImage_url(p.getImageUrl());
+        response.setProvince(p.getProvince());
+        response.setLast_name(p.getLastName());
+        return  response;
     }
 }

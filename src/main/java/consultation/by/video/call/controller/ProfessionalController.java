@@ -47,5 +47,13 @@ public class ProfessionalController {
         return ResponseEntity.ok().body(response);
     }
 
+    //returns the professionals that have profession
+    @GetMapping("/{idProfessional}")
+    public ResponseEntity<List<ProfessionalListResponse>> getProfessionalByProfession(@PathVariable Long idProfessional){
+        List<ProfessionalListResponse> responses = service.getProfessionalByProfessionalId(idProfessional);
+        return ResponseEntity.ok().body(responses);
+    }
+
+
 
 }

@@ -16,4 +16,6 @@ public interface ProfessionalService {
     ProfessionalAuthenticatedResponse authentication(ProfessionalAuthenticatedRequest request);
 
     List<ProfessionalListResponse> getAllProfessionals();
+
+    List<ProfessionalListResponse> getProfessionalByProfessionalId(Long professionId);
 }
