@@ -89,9 +89,9 @@ public class ProfessionalServiceImpl implements ProfessionalService {
                if(p.getEmail().equals(filtersDto.getEmail()) || p.getFirstName().equals(filtersDto.getFirst_name()) ||
                p.getLastName().equals(filtersDto.getLast_name()) || p.getDni().equals(filtersDto.getDni())){
                    response.add(professionalMapper.professionalEntityBasicDto(p));
+
                }
            }
-
         return response;
     }
 
