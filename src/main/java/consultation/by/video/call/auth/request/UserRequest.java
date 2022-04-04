@@ -2,15 +2,17 @@
 package consultation.by.video.call.auth.request;
 
 import consultation.by.video.call.model.entity.Role;
+import java.util.ArrayList;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+@Data
 @Getter
 @Setter
 @AllArgsConstructor
@@ -36,5 +38,7 @@ public class UserRequest {
     private String province;
     private String city;
     private List<Role> roles;
+
+   
     
 }

@@ -19,6 +19,7 @@ import consultation.by.video.call.auth.response.UserResponse;
 import consultation.by.video.call.auth.response.UserRoleResponse;
 import consultation.by.video.call.auth.service.abstraction.IRoleService;
 import consultation.by.video.call.exception.ParamNotFound;
+import consultation.by.video.call.model.entity.Patient;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -65,13 +66,14 @@ public class UserServiceImpl  implements UserDetailsService, IRegisterUserServic
         if(userRepository.findByEmail(request.getEmail()) != null){
             throw new RuntimeException(USER_EMAIL_ERROR);
         }
-        User user = userMapper.userDto2Entity(request);  
+        Patient user = (Patient) userMapper.userDto2Entity(request);  
         List<Role> roles = new ArrayList<>();
-        roles.add(roleService.findBy(ListRole.USER.getFullRoleName()));
+        //USER-PATIENT
+        roles.add(roleService.findBy(ListRole.PATIENT.getFullRoleName()));
         user.setRoles(roles);         
-        User userCreate = userRepository.save(user);
+        Patient userCreate = userRepository.save(user);
         UserRegisterResponse userRegisterResponse = userMapper.userEntity2Dto(userCreate);
-        userRegisterResponse.setToken(jwtUtil.generateToken( userCreate));
+        userRegisterResponse.setToken(jwtUtil.generateTokenPatient((UserDetails) userCreate));
         return userRegisterResponse;      
     }
 
@@ -129,11 +131,13 @@ public class UserServiceImpl  implements UserDetailsService, IRegisterUserServic
     @Override
     public UserResponse update(Long id, UserRequest request) throws NotFoundException {
         Optional<User> entity = userRepository.findById(id);
-        if(!entity.isPresent()){
-            throw new ParamNotFound("error: id Username is not valido");
-        }        
-        User entitySaved = userRepository.save(userMapper.userDtoEntity(entity.get(), request));
-        return userMapper.convertTo(entitySaved);
+//        if(!entity.isPresent()){
+//            throw new ParamNotFound("error: id Username is not valido");
+//        } 
+        if(entity.getClass().getName().equals("User"))
+        {System.out.println("ES USUARIO");  } 
+//        User entitySaved = userRepository.save(userMapper.userDtoEntity(entity.get(), request));
+        return null;
     }
 
     

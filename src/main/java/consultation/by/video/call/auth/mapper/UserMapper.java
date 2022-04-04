@@ -7,6 +7,7 @@ import consultation.by.video.call.auth.response.RoleResponse;
 import consultation.by.video.call.auth.response.UserRegisterResponse;
 import consultation.by.video.call.auth.response.UserResponse;
 import consultation.by.video.call.auth.response.UserRoleResponse;
+import consultation.by.video.call.model.entity.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -20,8 +21,8 @@ public class UserMapper {
     private PasswordEncoder passwordEncoder;
 
 
-    public User userDto2Entity(UserRegisterRequest request) {
-        User user = new User();
+    public Patient userDto2Entity(UserRegisterRequest request) {
+        Patient user = new Patient();
         user.setEmail(request.getEmail());
         user.setAge(request.getAge());
         user.setCity(request.getCity());
@@ -36,13 +37,13 @@ public class UserMapper {
         return user;        
     }
 
-    public UserRegisterResponse userEntity2Dto(User user) {
+    public UserRegisterResponse userEntity2Dto(Patient user) {
         UserRegisterResponse userRegisterResponse = new UserRegisterResponse();
         userRegisterResponse.setId(user.getId());
         userRegisterResponse.setFirstName(user.getFirstName());
         userRegisterResponse.setLastName(user.getLastName());
         userRegisterResponse.setEmail(user.getEmail());
-        userRegisterResponse.setRoles(new RoleResponse(user.getRoles().get(0).getId(), user.getRoles().get(0).getName()));
+        userRegisterResponse.setRoles(user.getRoles());
        
         return userRegisterResponse;
     }
