@@ -58,7 +58,8 @@ public class UserController {
     }
     @PostMapping("roles/{id}")
     @ApiOperation(value = "Update role user", notes = "Return a rol user updated" )
-    public ResponseEntity<?> updateRole(@PathVariable Long id, @PathVariable String roleName) throws NotFoundException {            
+    public ResponseEntity<?> updateRole(@PathVariable Long id, 
+            @RequestPart(value="name_role", required=true) String roleName) throws NotFoundException {            
         
         return ResponseEntity.ok().body(userService.updateRole(id, roleName));
     }

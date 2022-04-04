@@ -144,9 +144,12 @@ public class UserServiceImpl  implements UserDetailsService, IRegisterUserServic
           if(!entity.isPresent()){
             throw new ParamNotFound("error: id Username is not valido");
            } 
+          //llega rol parametro
            Role nuevoRole=roleService.findBy(roleName);
-           
-           entity.get().getRoles().add(roleService.findBy(roleName));
+          List<Role> rol=entity.get().getRoles();
+          rol.add(nuevoRole);
+          
+          entity.get().setRoles(rol);
            userRepository.save(entity.get());
            
           return userMapper.convertToUserRole(entity.get());
