@@ -101,8 +101,7 @@ public class UserServiceImpl  implements UserDetailsService, IRegisterUserServic
     @Override
     public UserAuthenticatedResponse authentication(UserAuthenticatedRequest request) {
        
-        User user = getUser(request.getEmail());
-        System.out.println("LLEGO ACA : "+user.getEmail()+" "+user.getRoles());
+        User user = getUser(request.getEmail());       
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPassword()));
         return new UserAuthenticatedResponse(jwtUtil.generateToken(user), user.getEmail(), user.getAuthorities());
     }
@@ -131,13 +130,11 @@ public class UserServiceImpl  implements UserDetailsService, IRegisterUserServic
     @Override
     public UserResponse update(Long id, UserRequest request) throws NotFoundException {
         Optional<User> entity = userRepository.findById(id);
-//        if(!entity.isPresent()){
-//            throw new ParamNotFound("error: id Username is not valido");
-//        } 
-        if(entity.getClass().getName().equals("User"))
-        {System.out.println("ES USUARIO");  } 
-//        User entitySaved = userRepository.save(userMapper.userDtoEntity(entity.get(), request));
-        return null;
+        if(!entity.isPresent()){
+            throw new ParamNotFound("error: id Username is not valido");
+        }       
+        User entitySaved = userRepository.save(userMapper.userDtoEntity(entity.get(), request));
+        return userMapper.convertTo(entitySaved);
     }
 
     
@@ -146,7 +143,9 @@ public class UserServiceImpl  implements UserDetailsService, IRegisterUserServic
           Optional<User> entity = userRepository.findById(id);
           if(!entity.isPresent()){
             throw new ParamNotFound("error: id Username is not valido");
-           }           
+           } 
+           Role nuevoRole=roleService.findBy(roleName);
+           
            entity.get().getRoles().add(roleService.findBy(roleName));
            userRepository.save(entity.get());
            

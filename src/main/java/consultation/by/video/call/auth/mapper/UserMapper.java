@@ -58,8 +58,7 @@ public class UserMapper {
         entity.setFirstName(request.getFirst_name());
         entity.setLastName(request.getLast_name());
         entity.setImageUrl(null);
-        entity.setProvince(request.getProvince());
-        entity.setRoles(request.getRoles());
+        entity.setProvince(request.getProvince());      
         entity.setPassword(passwordEncoder.encode(request.getPassword()));
         return entity;
 
