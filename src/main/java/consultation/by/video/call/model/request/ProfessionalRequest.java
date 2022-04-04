@@ -41,6 +41,7 @@ public class ProfessionalRequest {
     private double consultationPrice;
     private Long professionId;
     private MultipartFile file;
+    //########//
     @NotNull(message = "Ingrese el numero 3")
     private Long idRol;
 }
