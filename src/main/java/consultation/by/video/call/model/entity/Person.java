@@ -18,6 +18,7 @@ public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(unique = true , nullable = false )
     protected Long id;
     protected String firstName;
     protected String lastName;
