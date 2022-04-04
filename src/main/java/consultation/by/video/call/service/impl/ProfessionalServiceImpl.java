@@ -48,13 +48,20 @@ public class ProfessionalServiceImpl implements ProfessionalService {
             throw new RuntimeException("El email ya se encuentra registrado.");
         }
         Professional professional = professionalMapper.toEntity(request, file);
+        Role role = roleService.getRol(request.getIdRol());
         List<Role> roles = new ArrayList<>();
-        roles.add(roleService.findBy(ListRole.PROFESSIONAL.getFullRoleName()));
-        professional.setRoles(roles);
-        Professional saved = professionalRepository.save(professional);
-        ProfessionalResponse response = professionalMapper.toDto(saved);
-        response.setToken(jwtUtil.generateToken(saved));
-        return response;
+            if(role.getId() != 3){
+                throw new RuntimeException("Debe ingresar el numero 3 para registrar un professional. ");
+            }
+            else {
+                roles.add(roleService.findBy(ListRole.PROFESSIONAL.getFullRoleName()));
+                professional.setRoles(roles);
+                Professional saved = professionalRepository.save(professional);
+                ProfessionalResponse response = professionalMapper.toDto(saved);
+                response.setToken(jwtUtil.generateToken(saved));
+
+                return response;
+            }
     }
 
     @Override
