@@ -40,9 +40,4 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.authentication(request));
     }
 
-//    @GetMapping("/me")
-//    @ApiOperation(value = "Get infoUser", notes = "Return info User logged")
-//    public ResponseEntity<User> userLogged() throws NotFoundException{
-//        return new ResponseEntity<>(userService.getInfoUser(), HttpStatus.OK);
-//    }
 }
