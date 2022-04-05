@@ -1,8 +1,6 @@
 package consultation.by.video.call.auth.config.seeder;
 
 import consultation.by.video.call.model.entity.Professional;
-import consultation.by.video.call.repository.ProfessionalRepository;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;

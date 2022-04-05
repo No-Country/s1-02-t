@@ -1,7 +1,6 @@
 package consultation.by.video.call.auth.controller;
 
 import consultation.by.video.call.auth.service.abstraction.IRoleService;
-import consultation.by.video.call.auth.service.abstraction.IUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
