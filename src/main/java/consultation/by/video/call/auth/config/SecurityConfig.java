@@ -1,6 +1,5 @@
 package consultation.by.video.call.auth.config;
 
-import consultation.by.video.call.auth.entity.ListRole;
 import consultation.by.video.call.auth.filter.JwtRequestFilters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
