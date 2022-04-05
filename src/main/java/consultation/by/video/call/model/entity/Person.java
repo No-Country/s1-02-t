@@ -7,6 +7,8 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -14,6 +16,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @SQLDelete(sql = "UPDATE person SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
+
 public class Person {
 
     @Id
@@ -29,4 +32,5 @@ public class Person {
     protected String province;
     protected String city;
     protected boolean deleted;
+
 }

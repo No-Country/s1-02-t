@@ -21,15 +21,12 @@ public class Turn {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDate dia;
-    private LocalTime hora;
-
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", insertable = false, updatable = false)
+    private LocalDate day;
+    private LocalTime hour;
+    private boolean high;//alta
+    @ManyToOne()
     private Professional professional;
-
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", insertable = false, updatable = false)
+    @ManyToOne()
     private Patient patient;
     private boolean deleted;
 
