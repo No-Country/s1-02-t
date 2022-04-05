@@ -9,6 +9,7 @@ import consultation.by.video.call.auth.service.abstraction.IUserService;
 import consultation.by.video.call.auth.service.abstraction.IRegisterUserService;
 import consultation.by.video.call.auth.mapper.UserMapper;
 import consultation.by.video.call.auth.repository.IUserRepository;
+import consultation.by.video.call.auth.request.RolesRequest;
 import consultation.by.video.call.auth.request.UserAuthenticatedRequest;
 import consultation.by.video.call.auth.request.UserRegisterRequest;
 import consultation.by.video.call.auth.request.UserRequest;
@@ -35,6 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class UserServiceImpl  implements UserDetailsService, IRegisterUserService, IAuthenticationService, IUserService  {
@@ -62,11 +64,11 @@ public class UserServiceImpl  implements UserDetailsService, IRegisterUserServic
     private AuthenticationManager authenticationManager;
 
     @Override
-    public UserRegisterResponse register(UserRegisterRequest request) {
+    public UserRegisterResponse register(UserRegisterRequest request, MultipartFile[] file) {
         if(userRepository.findByEmail(request.getEmail()) != null){
             throw new RuntimeException(USER_EMAIL_ERROR);
         }
-        Patient user = (Patient) userMapper.userDto2Entity(request);  
+        Patient user = (Patient) userMapper.userDto2Entity(request, file);  
         List<Role> roles = new ArrayList<>();
         //USER-PATIENT
         roles.add(roleService.findBy(ListRole.PATIENT.getFullRoleName()));
@@ -139,20 +141,17 @@ public class UserServiceImpl  implements UserDetailsService, IRegisterUserServic
 
     
     @Override
-    public UserRoleResponse updateRole(Long id, String roleName){
-          Optional<User> entity = userRepository.findById(id);
+    public UserRoleResponse updateRoles(Long id, List<Role> roleNames){
+          Optional<User> entity = userRepository.findById(id);        
           if(!entity.isPresent()){
             throw new ParamNotFound("error: id Username is not valido");
-           } 
-          //llega rol parametro
-           Role nuevoRole=roleService.findBy(roleName);
-          List<Role> rol=entity.get().getRoles();
-          rol.add(nuevoRole);
-          
-          entity.get().setRoles(rol);
-           userRepository.save(entity.get());
-           
-          return userMapper.convertToUserRole(entity.get());
+          }          
+        List<Role> rolesNew = new ArrayList<>();   
+        for (Role role :roleNames){       
+             rolesNew.add(roleService.findById(role.getId()));           
+        }
+           entity.get().setRoles(rolesNew);                    
+          return userMapper.convertToUserRole(userRepository.save(entity.get()));
     }
     
     

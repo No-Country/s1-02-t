@@ -3,26 +3,27 @@ package consultation.by.video.call.auth.mapper;
 import consultation.by.video.call.model.entity.User;
 import consultation.by.video.call.auth.request.UserRegisterRequest;
 import consultation.by.video.call.auth.request.UserRequest;
-import consultation.by.video.call.auth.response.RoleResponse;
 import consultation.by.video.call.auth.response.UserRegisterResponse;
 import consultation.by.video.call.auth.response.UserResponse;
 import consultation.by.video.call.auth.response.UserRoleResponse;
 import consultation.by.video.call.model.entity.Patient;
+import consultation.by.video.call.service.FirebaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 @Component
 public class UserMapper {
 
-
-
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private FirebaseService service;
 
-
-    public Patient userDto2Entity(UserRegisterRequest request) {
+    public Patient userDto2Entity(UserRegisterRequest request, MultipartFile[] file) {
         Patient user = new Patient();
+        String imageUrl = service.subirImagen(file);
         user.setEmail(request.getEmail());
         user.setAge(request.getAge());
         user.setCity(request.getCity());
@@ -30,7 +31,7 @@ public class UserMapper {
         user.setDni(request.getDni());
         user.setFirstName(request.getFirst_name());
         user.setLastName(request.getLast_name());
-        user.setImageUrl(null);
+        user.setImageUrl(imageUrl);
         user.setProvince(request.getProvince());
         user.setRoles(null);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
@@ -57,7 +58,7 @@ public class UserMapper {
         entity.setDni(request.getDni());
         entity.setFirstName(request.getFirst_name());
         entity.setLastName(request.getLast_name());
-        entity.setImageUrl(null);
+        entity.setImageUrl(request.getImage_url());
         entity.setProvince(request.getProvince());      
         entity.setPassword(passwordEncoder.encode(request.getPassword()));
         return entity;
@@ -87,7 +88,7 @@ public class UserMapper {
         UserRoleResponse userResponse = new UserRoleResponse();
         userResponse.setId(user.getId());
         userResponse.setFirt_name(user.getFirstName());
-        userResponse.setRoles(user.getRoles());
+      //  userResponse.setRoles(user.getRoles());
         return userResponse;
     }
     

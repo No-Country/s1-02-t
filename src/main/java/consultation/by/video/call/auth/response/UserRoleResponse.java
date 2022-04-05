@@ -15,5 +15,5 @@ import lombok.Setter;
 public class UserRoleResponse {
     private Long id;   
     private String firt_name;    
-    private List<Role> roles;
+    private boolean modified_role=true;
 }

@@ -1,10 +1,13 @@
 package consultation.by.video.call.auth.controller;
 
+import consultation.by.video.call.auth.request.RolesRequest;
 import consultation.by.video.call.auth.request.UserRequest;
 import consultation.by.video.call.model.entity.User;
 import consultation.by.video.call.auth.service.abstraction.IUserService;
+import consultation.by.video.call.model.entity.Role;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.List;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -56,12 +59,11 @@ public class UserController {
             @RequestPart(value = "user", required = true) UserRequest request) throws NotFoundException {            
         return ResponseEntity.ok().body(userService.update(id, request));
     }
-    @PostMapping("roles/{id}")
+    @PostMapping("rolesuser/{id}")
     @ApiOperation(value = "Update role user", notes = "Return a rol user updated" )
-    public ResponseEntity<?> updateRole(@PathVariable Long id, 
-            @RequestPart(value="name_role", required=true) String roleName) throws NotFoundException {            
-        
-        return ResponseEntity.ok().body(userService.updateRole(id, roleName));
+    public ResponseEntity<?> updateRoles(@PathVariable Long id, 
+            @RequestBody List<Role> roleName) throws NotFoundException { 
+        return ResponseEntity.ok().body(userService.updateRoles(id, roleName));
     }
     
    
