@@ -6,5 +6,4 @@ import java.util.List;
 public interface IRoleService {
     Role findBy(String name);
     Role findById(Long id);
-    List<Role> findAll();
 }

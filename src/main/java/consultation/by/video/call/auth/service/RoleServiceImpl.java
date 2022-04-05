@@ -7,6 +7,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class RoleServiceImpl implements IRoleService {
 
@@ -20,10 +22,15 @@ public class RoleServiceImpl implements IRoleService {
 
     @Override
     public Role findById(Long id) {
-       return roleRepository.getById(id);    }
+       Optional<Role> role = roleRepository.findById(id);
+       if(role.isEmpty()){
+        throw new RuntimeException("Rol no encontrado");
+     }
+     return role.get();   
+  }
 
     @Override
     public List<Role> findAll() {
         return roleRepository.findAll();
-    }
+    }    
 }
