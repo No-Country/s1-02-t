@@ -54,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/api/docs/swagger-ui",
             "/swagger-ui.html",
             "/**/swagger-ui/**",
-            "/swagger-ui"
+            "/swagger-ui"            
     };
 
     @Override
@@ -72,7 +72,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET,"/user/{id}").permitAll()
                 .antMatchers(HttpMethod.DELETE,"/user/{id}").permitAll() //hasAnyAuthority("ROLE_ADMIN")
                 .antMatchers(HttpMethod.GET,"/user/me").permitAll()
-                .antMatchers(HttpMethod.GET,"/user/all").permitAll()
+
+                .antMatchers(HttpMethod.PUT,"/user/{id}").permitAll()
+                .antMatchers(HttpMethod.POST,"/user/roles/{id}").permitAll()
+                .antMatchers("https://s1-02-t-preview.netlify.app/").permitAll()
+                .antMatchers(publicEndpoint).permitAll()                 
                 .antMatchers(HttpMethod.POST,"/firebase/uploadImage").permitAll()
                 .antMatchers(HttpMethod.POST,"/profession").permitAll()
                 .antMatchers(HttpMethod.GET,"/profession").permitAll()

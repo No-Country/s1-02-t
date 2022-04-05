@@ -11,10 +11,12 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-@NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @SQLDelete(sql = "UPDATE turn SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
-@Getter @Setter
+@Getter
+@Setter
 @Entity
 public class Turn {
 
@@ -29,6 +31,4 @@ public class Turn {
     @ManyToOne()
     private Patient patient;
     private boolean deleted;
-
-
 }

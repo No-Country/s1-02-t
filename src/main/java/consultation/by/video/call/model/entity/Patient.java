@@ -2,21 +2,16 @@
 package consultation.by.video.call.model.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class Patient extends User {
-
-
 
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "patient_professional", joinColumns ={@JoinColumn(name = "idPatient")},
@@ -29,6 +24,4 @@ public class Patient extends User {
     public void addTurn(Turn t){
         turnList.add(t);
     }
-
-
 }

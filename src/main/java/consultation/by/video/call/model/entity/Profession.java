@@ -30,5 +30,6 @@ public class Profession {
     private String imageUrl;
     private boolean deleted = Boolean.FALSE;
 
-
+    //@ManyToMany(cascade = {CascadeType.ALL}, mappedBy = "professions")
+   // List<Professional> professionals = new ArrayList<>();
 }
