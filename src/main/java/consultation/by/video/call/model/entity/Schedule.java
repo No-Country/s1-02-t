@@ -18,6 +18,9 @@ public class Schedule {
     private Long id;
     private LocalTime homework; // Inicio del horario laboral de cada profesional
     private LocalTime endOfWork; //Fin del horario laboral de cada profesional
+    @OneToOne
+    @JoinColumn(name = "fk_professional", updatable = false, nullable = false)
+    private Professional professional;
 
     public Schedule(LocalTime inicioLaboral, LocalTime finLaboral) {
         this.homework = LocalTime.of(8,0);

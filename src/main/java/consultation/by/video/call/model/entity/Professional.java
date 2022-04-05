@@ -35,8 +35,7 @@ public class Professional extends User {
     @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<Turn> turnList = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "schedule_id")
+    @OneToOne (mappedBy = "professional", cascade = CascadeType.ALL)
     private Schedule schedule;
 
     public void addTurn(Turn t){
