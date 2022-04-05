@@ -32,16 +32,7 @@ public class Professional extends User {
     @JoinColumn(name = "profession_id", insertable = true, updatable = true)
     private Profession professions;
 
-    @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    List<Turn> turnList = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "schedule_id")
-    private Schedule schedule;
-
-    public void addTurn(Turn t){
-        turnList.add(t);
-    }
 
 
 }

@@ -7,8 +7,6 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -16,12 +14,10 @@ import java.util.List;
 @NoArgsConstructor
 @SQLDelete(sql = "UPDATE person SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
-
 public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(unique = true , nullable = false )
     protected Long id;
     protected String firstName;
     protected String lastName;
@@ -32,5 +28,4 @@ public class Person {
     protected String province;
     protected String city;
     protected boolean deleted;
-
 }
