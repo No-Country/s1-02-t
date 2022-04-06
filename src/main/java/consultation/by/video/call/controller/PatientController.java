@@ -1,13 +1,13 @@
 package consultation.by.video.call.controller;
 
-import org.springframework.http.ResponseEntity;
+import io.swagger.annotations.Api;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping("/patients")
+
+@CrossOrigin(origins = "*")
+@RequestMapping("/patient")
+@Api(value = "controller for patient methods", description = "This API for patient methods")
 public class PatientController {
-
-
 
 }
