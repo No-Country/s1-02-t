@@ -57,6 +57,11 @@ ROLES SEED
 <td>ROLE_PROFESSIONAL</td>
 <td>PROFESSIONAL</td>
 </tr>
+  <tr>
+<td>4</td>
+<td>ROLE_PATIENT</td>
+<td>PATIENT</td>
+</tr>
 </tbody>
 </table>
 
