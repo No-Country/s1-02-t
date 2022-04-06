@@ -31,3 +31,23 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Firebase ###
+/serviceAccountKey.json
+
+
+src/main/resources/application.properties
+nb-configuration.xml
+src/main/resources/application.properties
+<<<<<<< Updated upstream
+src/main/resources/application.properties
+src/main/resources/application.properties
+src/main/resources/application.properties
+=======
+pom.xml
+>>>>>>> Stashed changes
+src/main/resources/application.properties
+src/main/resources/application.properties
+src/main/resources/application.properties
+*.properties
+src/main/resources/application.properties

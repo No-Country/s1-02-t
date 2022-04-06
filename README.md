@@ -59,5 +59,3 @@ ROLES SEED
 </tr>
 </tbody>
 </table>
-
-
