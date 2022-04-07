@@ -1,5 +1,6 @@
 package consultation.by.video.call.model.entity;
 
+import java.time.LocalDate;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,6 +17,10 @@ public class Schedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "schedule_id")
     private Long id;
+    private LocalDate weekday; //lunes, Martes ....
+    private LocalDate month; //mes
+    private LocalDate year;//año
+    private LocalDate dayMonth;//dia del mes
     private LocalTime homework; // Inicio del horario laboral de cada profesional
     private LocalTime endOfWork; //Fin del horario laboral de cada profesional
     @OneToOne
