@@ -7,4 +7,5 @@ import consultation.by.video.call.model.response.PatientTurnResponse;
 public interface  PatientService {
    Patient getPatients(Long Id);
    PatientTurnResponse savePatientTurn(PatientTurnRequest request);
+
 }

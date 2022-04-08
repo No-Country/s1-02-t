@@ -102,6 +102,13 @@ public class ProfessionalServiceImpl implements ProfessionalService {
         professionalRepository.save(p);
     }
 
+    @Override
+    public ProfessionalListResponse getById(Long id) {
+        Professional professional = getProfessional(id);
+        ProfessionalListResponse response = professionalMapper.professionalEntityBasicDto(professional);
+        return response;
+    }
+
     private Professional getProfessional(Long id){
         Optional<Professional> professional = professionalRepository.findById(id);
         if(professional.isEmpty() || professional.get().isDeleted()){
