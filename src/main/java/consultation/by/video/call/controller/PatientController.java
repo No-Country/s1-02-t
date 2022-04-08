@@ -16,17 +16,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/patient")
+@RestController
+@RequestMapping("/patient/api/v1")
 @Api(value = "controller for patient methods", description = "This API for patient methods")
 public class PatientController {
 
-    @Autowired
-    private IUserService userService;
-    @Autowired
-    private ProfessionalService professionalService;
+  
     @Autowired
     private PatientService patientService;
 
