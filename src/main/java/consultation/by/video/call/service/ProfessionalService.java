@@ -18,7 +18,7 @@ public interface ProfessionalService {
 
     List<ProfessionalListResponse> getAllProfessionals();
 
-    List<ProfessionalListResponse> getProfessionalByProfessionalId(Long professionId);
+    List<ProfessionalListResponse> getProfessionalByProfessionId(Long professionId);
 
     List<ProfessionalListResponse> getByFilters(String email, String first_name, String last_name, String dni);
 
