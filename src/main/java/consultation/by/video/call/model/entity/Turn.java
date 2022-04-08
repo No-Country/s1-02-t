@@ -1,5 +1,6 @@
 package consultation.by.video.call.model.entity;
 
+import consultation.by.video.call.model.enums.EnumState;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,7 +26,7 @@ public class Turn {
     private Long id;
     private LocalDate day;
     private LocalTime hour;
-    private boolean high;//alta
+    private Enum high=EnumState.ACTIVE;//alta
     @ManyToOne()
     private Professional professional;
     @ManyToOne()
