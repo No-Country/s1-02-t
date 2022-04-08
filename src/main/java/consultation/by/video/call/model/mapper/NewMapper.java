@@ -33,10 +33,4 @@ public class NewMapper {
         return response;
     }
 
-    public void newRefreshValues(New entity, NewRequest request) {
-        entity.setDeleted(request.isDeleted());
-        entity.setSource(request.getSource());
-        entity.setTitle(request.getTitle());
-        entity.setImageUrl(request.getImageUrl());
-    }
 }
