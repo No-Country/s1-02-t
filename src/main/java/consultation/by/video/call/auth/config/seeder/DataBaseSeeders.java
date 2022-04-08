@@ -60,9 +60,10 @@ public class DataBaseSeeders {
             createRoles();
         }
         List<Profession> professions = professionRepository.findAll();
-        if(professions.isEmpty())
+        if(professions.isEmpty()) {
             createProfessions();
-       
+        }
+
         List<User> users = userRepository.findAll();
         if (users.isEmpty()) {
             createUsers();
@@ -76,10 +77,7 @@ public class DataBaseSeeders {
         createRole(3L, ListRole.PROFESSIONAL);
         createRole(4L, ListRole.PATIENT);
     }
-    private void createProfessions() {
-        Arrays.stream(professionsList).forEach(
-                profession -> professionRepository.save(profession));
-    };
+
     private void createUsers() {
         User user = new User();
         createUsers(ListRole.ADMIN);
@@ -95,6 +93,11 @@ public class DataBaseSeeders {
         Integer num = (int) (Math.random() * (99000000 - 10000000 + 1) + 10000000);
         return num.toString();
     }
+
+    private void createProfessions() {
+        Arrays.stream(professionsList).forEach(
+                profession -> professionRepository.save(profession));
+    };
 
     private void createUsers(ListRole applicationRole) {
 
@@ -147,19 +150,19 @@ public class DataBaseSeeders {
 
         for (int index = 0; index < 3; index++) {
             Professional user = new Professional();
-            user.setFirstName(firstNameProfessional[index]);
+            user.setFirstName(firstNameProfessional[(int) index]);
             user.setEmail(applicationRole.getName().toLowerCase() + (index + 1) + HOST_EMAIL);
             user.setPassword(passwordEncoder.encode(PASSWORD));
             user.setCity("Beltran ");
             user.setCountry("Argentina");
-            user.setLastName(lastNameProfessional[index]);
+            user.setLastName(lastNameProfessional[(int) index]);
             user.setAge(calcAge());
             user.setDni(calcDni());
             user.setProvince("Mendoza");
             user.setRoles(createListRole(applicationRole));
             user.setConsultationPrice(calcAge()*100.3);
             user.setEnrollment(calcDni());
-            user.setProfessions( professionsList[index]);
+            user.setProfessions(professionsList[index]);
             userRepository.save(user);
 
         }
