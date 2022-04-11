@@ -33,7 +33,8 @@ public class Schedule {
     @OneToOne
     @JoinColumn(name = "fk_professional", updatable = false, nullable = false)
     private Professional professional;
-    private Enum status=EnumState.ACTIVE;
+    @Enumerated(value = EnumType.STRING)
+    private EnumState status=EnumState.ACTIVED;
 
     public Schedule(LocalTime inicioLaboral, LocalTime finLaboral) {
         this.homework = LocalTime.of(8,0);
