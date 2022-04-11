@@ -95,8 +95,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT,"/user/{id}").permitAll()
                 .antMatchers(HttpMethod.POST,"/user/roles/{id}").permitAll()
                 .antMatchers("https://s1-02-t-preview.netlify.app/").permitAll()
-                .antMatchers(HttpMethod.POST,"/patient/api/v1/turn_patient").permitAll() 
-                
+                .antMatchers(publicEndpoint).permitAll()                 
                 .antMatchers(HttpMethod.POST,"/firebase/uploadImage").permitAll()
                 .antMatchers(HttpMethod.POST,"/profession").permitAll()
                 .antMatchers(HttpMethod.GET,"/profession").permitAll()
