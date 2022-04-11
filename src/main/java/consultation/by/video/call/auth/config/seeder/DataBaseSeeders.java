@@ -54,17 +54,15 @@ public class DataBaseSeeders {
     
 
     @EventListener
-    public void seed(ContextRefreshedEvent event) throws IOException {
-        List<Role> roles = roleRepository.findAll();
-        if (roles.isEmpty()) {
+    public void seed(ContextRefreshedEvent event) throws IOException {       
+        if (roleRepository.findAll().isEmpty()) {
             createRoles();
         }
-        List<Profession> professions = professionRepository.findAll();
-        if(professions.isEmpty())
-            createProfessions();
-       
-        List<User> users = userRepository.findAll();
-        if (users.isEmpty()) {
+     
+        if(professionRepository.findAll().isEmpty())
+            createProfessions();       
+        
+        if (userRepository.findAll().isEmpty()) {
             createUsers();
         }
 
@@ -77,14 +75,18 @@ public class DataBaseSeeders {
         createRole(4L, ListRole.PATIENT);
     }
     private void createProfessions() {
-        Arrays.stream(professionsList).forEach(
-                profession -> professionRepository.save(profession));
+//        Arrays.stream(professionsList).forEach(
+//                profession -> professionRepository.save(profession));
+        for (Profession profession : professionsList) {
+            professionRepository.save(profession);
+        }
+        
     };
-    private void createUsers() {
-        User user = new User();
+    private void createUsers(){       
         createUsers(ListRole.ADMIN);
         createPatient(ListRole.USER);
-        createProfessional(ListRole.PROFESSIONAL);
+        List<Profession> professionList=professionRepository.findAll();
+        createProfessional(ListRole.PROFESSIONAL, professionList);
     }
 
     private Integer calcAge() {
@@ -143,8 +145,8 @@ public class DataBaseSeeders {
         }
     }
 
-    private void createProfessional(ListRole applicationRole) {
-
+    private void createProfessional(ListRole applicationRole, List<Profession> professionList) {
+       
         for (int index = 0; index < 3; index++) {
             Professional user = new Professional();
             user.setFirstName(firstNameProfessional[index]);
@@ -157,9 +159,11 @@ public class DataBaseSeeders {
             user.setDni(calcDni());
             user.setProvince("Mendoza");
             user.setRoles(createListRole(applicationRole));
-            user.setConsultationPrice(calcAge()*100.3);
-            user.setEnrollment(calcDni());
-            user.setProfessions( professionsList[index]);
+            user.setConsultationPrice(calcAge()*100.3);           
+//            user.setProfessions(professionList.get(index)) ;
+            
+            user.setEnrollment(calcDni());          
+            
             userRepository.save(user);
 
         }
@@ -172,5 +176,6 @@ public class DataBaseSeeders {
         role.setDescription(applicationRole.getName());
         roleRepository.save(role);
     }
+    
 
 }
