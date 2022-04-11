@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import lombok.Builder;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,17 +18,15 @@ import lombok.Builder;
 @Where(clause = "deleted = false")
 @Getter
 @Setter
-@Builder
 @Entity
 public class Turn {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDate day; //date full
+    private LocalDate day;
     private LocalTime hour;
-    @Enumerated(value = EnumType.STRING)
-    private EnumState high;//alta
+    private Enum high=EnumState.ACTIVE;//alta
     @ManyToOne()
     private Professional professional;
     @ManyToOne()
