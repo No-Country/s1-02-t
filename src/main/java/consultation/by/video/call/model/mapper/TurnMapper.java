@@ -5,8 +5,9 @@ import consultation.by.video.call.model.entity.Professional;
 import consultation.by.video.call.model.entity.Turn;
 import consultation.by.video.call.model.enums.EnumState;
 import consultation.by.video.call.model.response.PatientTurnResponse;
-
+import consultation.by.video.call.model.response.TurnsPatientResponse;
 import org.springframework.stereotype.Component;
+
 @Component
 public class TurnMapper {
    
@@ -21,22 +22,16 @@ public class TurnMapper {
                 .build();
     }
     
-//        private String weekday;     
-//    private LocalDate dayMonthYear;//dia del mes  
-//    private LocalTime homework; // Inicio del horario laboral de cada profesional    
-//    private Enum status=EnumState.ACTIVE;
-//    private double consultationPrice; 
-//    //professional
-//    private Long professional_id;
-//    private String lastName;
-//    private String firstName;
-//    private Double price;
-//    
+    public TurnsPatientResponse toDtResponse(Turn turns){
+        return TurnsPatientResponse.builder()
+                .id(turns.getId())
+                .dayMonthYear(turns.getDay())
+                .homework(turns.getHour())
+                .status(turns.getHigh())               
+                .patient(turns.getPatient().getId())
+                .professional_id(turns.getProfessional().getId())
+                .build();
+    }
     
-//    private LocalDate day; //date full
-//    private LocalTime hour;
-//    private Enum high=EnumState.ADVANCED;//alta   
-//    private Professional professional;   
-//    private Patient patient; //ver
-//    private boolean deleted; //ver
+
 }

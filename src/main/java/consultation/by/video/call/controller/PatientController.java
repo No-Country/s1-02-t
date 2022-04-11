@@ -1,17 +1,19 @@
 package consultation.by.video.call.controller;
 
-import consultation.by.video.call.auth.service.abstraction.IUserService;
+
+import consultation.by.video.call.auth.response.PatientsReponse;
 import consultation.by.video.call.model.request.PatientTurnRequest;
 import consultation.by.video.call.model.response.PatientTurnResponse;
 import consultation.by.video.call.service.PatientService;
-import consultation.by.video.call.service.ProfessionalService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,5 +37,13 @@ public class PatientController {
     public PatientTurnResponse createTurnPatient(@Valid @RequestBody PatientTurnRequest request) {
         return patientService.savePatientTurn(request);
     }
+    
+    @GetMapping("/patients")
+    @ApiOperation(value = "Show all patients", notes = "Return List patients")
+    @ResponseStatus(HttpStatus.CREATED)
+    public List<PatientsReponse> getAllPatients() {
+        return patientService.getPatients();
+    }
+    
 
 }

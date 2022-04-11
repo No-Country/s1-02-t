@@ -1,7 +1,6 @@
 package consultation.by.video.call.auth.config.seeder;
 
 import consultation.by.video.call.model.entity.Professional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,9 +14,7 @@ import consultation.by.video.call.model.entity.Patient;
 import consultation.by.video.call.model.entity.Profession;
 import consultation.by.video.call.repository.ProfessionRepository;
 import java.io.IOException;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 
@@ -84,7 +81,7 @@ public class DataBaseSeeders {
     };
     private void createUsers(){       
         createUsers(ListRole.ADMIN);
-        createPatient(ListRole.USER);
+        createPatient(ListRole.PATIENT);
         List<Profession> professionList=professionRepository.findAll();
         createProfessional(ListRole.PROFESSIONAL, professionList);
     }

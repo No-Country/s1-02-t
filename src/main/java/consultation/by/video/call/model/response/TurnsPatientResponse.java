@@ -1,3 +1,4 @@
+
 package consultation.by.video.call.model.response;
 
 
@@ -15,17 +16,14 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PatientTurnResponse {
-    
-    private String weekday;     
+public class TurnsPatientResponse {   
+    private Long id ;
     private LocalDate dayMonthYear;//dia del mes  
     private LocalTime homework; // Inicio del horario laboral de cada profesional    
-    private EnumState status=EnumState.ACTIVED ;
-    private double consultationPrice; 
+    private EnumState status;   
+    private Long patient;
     //professional
     private Long professional_id;
-    private String lastName;
-    private String firstName;
-   
-   
+
+    
 }

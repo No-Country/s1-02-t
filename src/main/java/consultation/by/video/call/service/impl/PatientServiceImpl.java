@@ -1,11 +1,13 @@
 package consultation.by.video.call.service.impl;
 
 import consultation.by.video.call.auth.repository.IUserRepository;
+import consultation.by.video.call.auth.response.PatientsReponse;
 import consultation.by.video.call.auth.service.abstraction.IUserService;
 import consultation.by.video.call.exception.ParamNotFound;
 import consultation.by.video.call.model.entity.Patient;
 import consultation.by.video.call.model.entity.Professional;
 import consultation.by.video.call.model.entity.Turn;
+import consultation.by.video.call.model.entity.User;
 import consultation.by.video.call.model.mapper.PatientMapper;
 import consultation.by.video.call.model.mapper.TurnMapper;
 import consultation.by.video.call.model.request.PatientTurnRequest;
@@ -20,12 +22,14 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import javassist.NotFoundException;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PatientServiceImpl implements PatientService {
-
+    
+     private static final String ERROR_CONECTION = "Error trying to connect to BD: ";
     @Autowired
     private IUserRepository userRepository;
     @Autowired
@@ -37,11 +41,8 @@ public class PatientServiceImpl implements PatientService {
     @Autowired
     private TurnMapper mapperTurn;
 
-    @Override
-    public Patient getPatients(Long Id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
+    @Transactional
     @Override
     public PatientTurnResponse savePatientTurn(PatientTurnRequest request) {
        
@@ -56,12 +57,16 @@ public class PatientServiceImpl implements PatientService {
         request.getProfessional().setLastName(professional.getLastName());
         request.getProfessional().setFirstName(professional.getFirstName());        
         PatientTurnResponse patientTurn = mapperPatient.toEntity(request, dayDate(request.getDayMonthYear().toString()));        
-        Turn turn =turnRepository.save(mapperTurn.toDTO(patientTurn, professional, patient));
-        patientTurns(patient, turn, professional);       
+        try {
+            Turn turn =turnRepository.save(mapperTurn.toDTO(patientTurn, professional, patient));
+             patientTurns(patient, turn, professional);   
+        } catch (Exception e) {
+             throw new ParamNotFound(ERROR_CONECTION+ e.getMessage());
+        }    
         return patientTurn;
     }
 
-    
+    @Transactional
     private void patientTurns(Patient patient, Turn t, Professional professional){
         List<Turn> newTurns=patient.getTurnList();
         newTurns.add(t);
@@ -69,7 +74,12 @@ public class PatientServiceImpl implements PatientService {
         List<Professional> newProfessional=patient.getProfessionals();
         newProfessional.add(professional);
         patient.setProfessionals(newProfessional);
-        userRepository.save(patient);        
+        try {
+            userRepository.save(patient); 
+        } catch (Exception e) {
+              throw new ParamNotFound(ERROR_CONECTION +e.getMessage() );
+        }
+               
     }
     
     
@@ -108,4 +118,18 @@ public class PatientServiceImpl implements PatientService {
         return day;
     }
 
+    @Override
+    public List<PatientsReponse> getPatients() {
+        List<User> users= userRepository.findAll();
+        List<PatientsReponse> patientsList=new ArrayList();
+        for (User patient : users) {
+            if(patient.getRoles().get(0).getName().equals("ROLE_PATIENT")){            
+            patientsList.add( mapperPatient.toDTO((Patient) patient));
+            }
+        }
+        if(patientsList.isEmpty())
+        { throw  new ParamNotFound("Empty patient list ");}
+        
+    return patientsList;
+    }
 }

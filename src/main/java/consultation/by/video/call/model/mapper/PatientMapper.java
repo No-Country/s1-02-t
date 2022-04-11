@@ -1,6 +1,8 @@
 package consultation.by.video.call.model.mapper;
 
 
+import consultation.by.video.call.auth.response.PatientsReponse;
+import consultation.by.video.call.model.entity.Patient;
 import consultation.by.video.call.model.enums.EnumState;
 import consultation.by.video.call.model.request.PatientTurnRequest;
 import consultation.by.video.call.model.response.PatientTurnResponse;
@@ -23,12 +25,14 @@ public class PatientMapper {
         
     }
 
-//    public ProfessionResponse toDTO(Profession entity) {
-//        return ProfessionResponse.builder()
-//                .id(entity.getId())
-//                .title(entity.getTitle())
-//                .description(entity.getDescription())
-//                .imageUrl(entity.getImageUrl())
-//                .build();
-//    }
+    public PatientsReponse toDTO(Patient entity) {
+        return PatientsReponse.builder()
+                .id(entity.getId())
+                .username(entity.getUsername())
+                .dni(entity.getDni())                
+                .firt_name(entity.getFirstName())
+                .last_name(entity.getLastName())
+                .image_url(entity.getImageUrl())
+                .build();
+    }
 }
