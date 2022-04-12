@@ -18,5 +18,5 @@ public interface IUserService {
     UserResponse getById(Long id);
     List<UserResponse> getAllUser();
     UserRoleResponse updateRoles(Long id , List<Role> roles);
-    List<PatientsReponse> getByFilters(String email, String first_name, String last_name, String dni);
+    List<UserResponse> getByFilters(String email, String first_name, String last_name, String dni);
 }

@@ -80,7 +80,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET,"/patient/api/v1/patients").permitAll()
                 .antMatchers(HttpMethod.GET,"/turn/api/v1/").permitAll()
                 .antMatchers(HttpMethod.GET,"/turn/api/v1/turns/high").permitAll()
-                .antMatchers(HttpMethod.GET,"/turn/api/v1/{id}").permitAll()
+                .antMatchers(HttpMethod.GET,"/api/v1/turn/{id}").permitAll()
+                
                 .antMatchers(HttpMethod.POST,"/firebase/uploadImage").permitAll()
                 .antMatchers(HttpMethod.POST,"/profession").permitAll()
                 .antMatchers(HttpMethod.GET,"/profession").permitAll()

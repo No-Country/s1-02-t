@@ -10,13 +10,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/turn/api/v1")
+@RequestMapping("/api/v1/turn")
 @Api(value = "controller for turn methods", description = "This API for turns methods")
 public class TurnController {
     
@@ -38,7 +39,7 @@ public class TurnController {
     
    @ApiOperation(value = "show turn by ID", notes = "Return Turn by ID")  
     @GetMapping("/{id}")
-     public TurnsPatientResponse getTurnById(Long id) {
+     public TurnsPatientResponse getTurnById(@PathVariable Long id) {
         return turnService.getTurnById(id);
     }
    

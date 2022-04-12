@@ -2,8 +2,6 @@ package consultation.by.video.call.service.impl;
 
 import consultation.by.video.call.auth.repository.IUserRepository;
 import consultation.by.video.call.exception.ParamNotFound;
-import consultation.by.video.call.model.entity.Patient;
-import consultation.by.video.call.model.entity.Profession;
 import consultation.by.video.call.model.entity.Turn;
 import consultation.by.video.call.model.enums.EnumState;
 import consultation.by.video.call.model.mapper.TurnMapper;
@@ -12,7 +10,6 @@ import consultation.by.video.call.repository.TurnRepository;
 import consultation.by.video.call.service.TurnService;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +27,8 @@ public class TurnServiceImpl implements TurnService {
 
     @Override
     public TurnsPatientResponse getTurnById(Long Id) {
-        return turnMapper.toDtResponse( turnRepository.findById(Id).orElseThrow());               
+        Turn t= turnRepository.findById(Id).orElseThrow();
+        return turnMapper.toDtResponse(t);               
     }
 
     @Override

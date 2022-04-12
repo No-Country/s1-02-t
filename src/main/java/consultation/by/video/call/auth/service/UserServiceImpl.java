@@ -29,7 +29,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
@@ -154,18 +153,18 @@ public class UserServiceImpl  implements UserDetailsService, IRegisterUserServic
     }
     
     @Override
-    public List<PatientsReponse> getByFilters(String email, String first_name, String last_name, String dni) {
+    public List<UserResponse> getByFilters(String email, String first_name, String last_name, String dni) {
         UserRegisterRequest filtersDto = new UserRegisterRequest(email,first_name,last_name,dni);
         
-        List<PatientsReponse> response = new ArrayList<>();
-        List<Patient> patients = (List<Patient>) (Patient) userRepository.findAll();        
-           for (Patient p: patients){
+        List<UserResponse> response = new ArrayList<>();
+        List<User> patients = (List<User>)  userRepository.findAll();        
+           for (User p: patients){
                if(p.getEmail().equals(filtersDto.getEmail()) ||
                   p.getFirstName().equals(filtersDto.getFirst_name()) ||
                   p.getLastName().equals(filtersDto.getLast_name()) || 
                   p.getDni().equals(filtersDto.getDni())){
                    
-                   response.add(mapperPatient.toDTO(p) );
+                   response.add( userMapper.convertTo(p));
                }
            }
         return response;
