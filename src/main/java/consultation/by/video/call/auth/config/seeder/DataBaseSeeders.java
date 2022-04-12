@@ -1,7 +1,6 @@
 package consultation.by.video.call.auth.config.seeder;
 
 import consultation.by.video.call.model.entity.Professional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,9 +14,7 @@ import consultation.by.video.call.model.entity.Patient;
 import consultation.by.video.call.model.entity.Profession;
 import consultation.by.video.call.repository.ProfessionRepository;
 import java.io.IOException;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 
@@ -54,18 +51,15 @@ public class DataBaseSeeders {
     
 
     @EventListener
-    public void seed(ContextRefreshedEvent event) throws IOException {
-        List<Role> roles = roleRepository.findAll();
-        if (roles.isEmpty()) {
+    public void seed(ContextRefreshedEvent event) throws IOException {       
+        if (roleRepository.findAll().isEmpty()) {
             createRoles();
         }
-        List<Profession> professions = professionRepository.findAll();
-        if(professions.isEmpty()) {
-            createProfessions();
-        }
-
-        List<User> users = userRepository.findAll();
-        if (users.isEmpty()) {
+     
+        if(professionRepository.findAll().isEmpty())
+            createProfessions();       
+        
+        if (userRepository.findAll().isEmpty()) {
             createUsers();
         }
 
@@ -77,12 +71,19 @@ public class DataBaseSeeders {
         createRole(3L, ListRole.PROFESSIONAL);
         createRole(4L, ListRole.PATIENT);
     }
-
-    private void createUsers() {
-        User user = new User();
+    private void createProfessions() {
+//        Arrays.stream(professionsList).forEach(
+//                profession -> professionRepository.save(profession));
+        for (Profession profession : professionsList) {
+            professionRepository.save(profession);
+        }
+        
+    };
+    private void createUsers(){       
         createUsers(ListRole.ADMIN);
-        createPatient(ListRole.USER);
-        createProfessional(ListRole.PROFESSIONAL);
+        createPatient(ListRole.PATIENT);
+        List<Profession> professionList=professionRepository.findAll();
+        createProfessional(ListRole.PROFESSIONAL, professionList);
     }
 
     private Integer calcAge() {
@@ -93,11 +94,6 @@ public class DataBaseSeeders {
         Integer num = (int) (Math.random() * (99000000 - 10000000 + 1) + 10000000);
         return num.toString();
     }
-
-    private void createProfessions() {
-        Arrays.stream(professionsList).forEach(
-                profession -> professionRepository.save(profession));
-    };
 
     private void createUsers(ListRole applicationRole) {
 
@@ -146,23 +142,25 @@ public class DataBaseSeeders {
         }
     }
 
-    private void createProfessional(ListRole applicationRole) {
-
+    private void createProfessional(ListRole applicationRole, List<Profession> professionList) {
+       
         for (int index = 0; index < 3; index++) {
             Professional user = new Professional();
-            user.setFirstName(firstNameProfessional[(int) index]);
+            user.setFirstName(firstNameProfessional[index]);
             user.setEmail(applicationRole.getName().toLowerCase() + (index + 1) + HOST_EMAIL);
             user.setPassword(passwordEncoder.encode(PASSWORD));
             user.setCity("Beltran ");
             user.setCountry("Argentina");
-            user.setLastName(lastNameProfessional[(int) index]);
+            user.setLastName(lastNameProfessional[index]);
             user.setAge(calcAge());
             user.setDni(calcDni());
             user.setProvince("Mendoza");
             user.setRoles(createListRole(applicationRole));
-            user.setConsultationPrice(calcAge()*100.3);
-            user.setEnrollment(calcDni());
-            user.setProfessions(professionsList[index]);
+            user.setConsultationPrice(calcAge()*100.3);           
+//            user.setProfessions(professionList.get(index)) ;
+            
+            user.setEnrollment(calcDni());          
+            
             userRepository.save(user);
 
         }
@@ -175,5 +173,6 @@ public class DataBaseSeeders {
         role.setDescription(applicationRole.getName());
         roleRepository.save(role);
     }
+    
 
 }

@@ -1,6 +1,6 @@
 package consultation.by.video.call.service;
 
-import consultation.by.video.call.model.entity.Professional;
+
 import consultation.by.video.call.model.request.ProfessionalAuthenticatedRequest;
 import consultation.by.video.call.model.request.ProfessionalRequest;
 import consultation.by.video.call.model.response.ProfessionalAuthenticatedResponse;

@@ -1,10 +1,12 @@
 package consultation.by.video.call.service;
 
-import consultation.by.video.call.model.entity.Patient;
-import consultation.by.video.call.model.request.PatientTurnRequest;
-import consultation.by.video.call.model.response.PatientTurnResponse;
+import consultation.by.video.call.model.enums.EnumState;
+import consultation.by.video.call.model.response.TurnsPatientResponse;
+import java.util.List;
+
 
 public interface  TurnService {
-   Patient getTurns(Long Id);
-   PatientTurnResponse saveTurn(PatientTurnRequest request);
+   TurnsPatientResponse getTurnById(Long Id);
+   List<TurnsPatientResponse> getAllTurns();
+   List<TurnsPatientResponse> getAllTurnsActived(EnumState high);
 }

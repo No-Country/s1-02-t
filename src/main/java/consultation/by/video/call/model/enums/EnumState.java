@@ -1,6 +1,6 @@
 package consultation.by.video.call.model.enums;
 
 public enum EnumState {
-    REALIZED, ACTIVE, SUSPENDED, CANCELED
+    REALIZED, ACTIVED, SUSPENDED, CANCELED, ADVANCED
 }
 
