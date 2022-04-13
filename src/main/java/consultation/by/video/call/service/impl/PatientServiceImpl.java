@@ -1,8 +1,8 @@
 package consultation.by.video.call.service.impl;
 
-import consultation.by.video.call.auth.repository.IUserRepository;
-import consultation.by.video.call.auth.response.PatientsReponse;
-import consultation.by.video.call.auth.service.abstraction.IUserService;
+import consultation.by.video.call.model.response.PatientsReponse;
+import consultation.by.video.call.repository.IUserRepository;
+import consultation.by.video.call.service.IUserService;
 import consultation.by.video.call.exception.ParamNotFound;
 import consultation.by.video.call.model.entity.Patient;
 import consultation.by.video.call.model.entity.Professional;

@@ -18,7 +18,7 @@ public class Profession {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
+    @Column(name = "profession_id")
     private Long id;
     @NotEmpty(message = "you must enter a title")
     private String title;

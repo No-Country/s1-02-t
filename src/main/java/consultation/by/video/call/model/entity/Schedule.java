@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
 @Getter @Setter
 @Entity
 @NoArgsConstructor
+
 public class Schedule {
 
     @Id
@@ -36,10 +37,7 @@ public class Schedule {
     @Enumerated(value = EnumType.STRING)
     private EnumState status=EnumState.ACTIVED;
 
-    public Schedule(LocalTime inicioLaboral, LocalTime finLaboral) {
-        this.homework = LocalTime.of(8,0);
-        this.endOfWork = LocalTime.of(12,0);
-    }
+
 
 
 }

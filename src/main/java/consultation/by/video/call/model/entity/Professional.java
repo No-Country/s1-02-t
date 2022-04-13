@@ -28,7 +28,7 @@ public class Professional extends User {
     @ManyToMany(cascade = {CascadeType.ALL}, mappedBy = "professionals")
     private List<Patient> patients = new ArrayList<>();
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "profession_id",insertable = true)
     private Profession professions;
 

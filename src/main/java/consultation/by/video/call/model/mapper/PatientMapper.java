@@ -1,11 +1,10 @@
 package consultation.by.video.call.model.mapper;
 
-
-import consultation.by.video.call.auth.response.PatientsReponse;
 import consultation.by.video.call.model.entity.Patient;
 import consultation.by.video.call.model.enums.EnumState;
 import consultation.by.video.call.model.request.PatientTurnRequest;
 import consultation.by.video.call.model.response.PatientTurnResponse;
+import consultation.by.video.call.model.response.PatientsReponse;
 import org.springframework.stereotype.Component;
 
 @Component
