@@ -1,6 +1,6 @@
 package consultation.by.video.call.service.impl;
 
-import consultation.by.video.call.auth.repository.IUserRepository;
+import consultation.by.video.call.repository.IUserRepository;
 import consultation.by.video.call.model.entity.Patient;
 import consultation.by.video.call.model.request.PatientTurnRequest;
 import consultation.by.video.call.model.response.PatientTurnResponse;
