@@ -26,9 +26,9 @@ public class DataBaseSeeders {
     private static final String HOST_EMAIL = "@test.com";
     private static final String firstNameUser[] = {"Gabriel", "Abel", "Tomas"};
     private static final String firstNamePatient[] = {"Laura", "Raquel", "Roberto"};
-    private static final String firstNameProfessional[] = {"Tomas", "Eduardo", "Caro"};
+    private static final String firstNameProfessional[] = {"Tomas", "Eduardo", "Caro","Abel","Fernando"};
     private static final String lastNameUser[] = {"Navarro", "Acevedo", "Padilla"};
-    private static final String lastNameProfessional[] = {"Caruana", "Lopez", "Nose"};
+    private static final String lastNameProfessional[] = {"Caruana", "Lopez", "Nose","Acevedo","Vals"};
     private static final String lastNamePatient[] = {"Sanchez", "Lepez", "Astudillo"};
     private final Profession [] professionsList = {
             new Profession(1L, "Psicología","Tratamientos para la ansiedad, depresión, stress, parejas. Y mucho más...",
@@ -55,13 +55,18 @@ public class DataBaseSeeders {
         if (roleRepository.findAll().isEmpty()) {
             createRoles();
         }
-     
+
+        if(professionRepository.findAll().isEmpty()){
+            createProfessions();
+        }
+
         if(professionRepository.findAll().isEmpty())
             createProfessions();       
         
         if (userRepository.findAll().isEmpty()) {
             createUsers();
         }
+
 
     }
 
@@ -71,19 +76,19 @@ public class DataBaseSeeders {
         createRole(3L, ListRole.PROFESSIONAL);
         createRole(4L, ListRole.PATIENT);
     }
+
     private void createProfessions() {
-//        Arrays.stream(professionsList).forEach(
-//                profession -> professionRepository.save(profession));
         for (Profession profession : professionsList) {
             professionRepository.save(profession);
         }
         
     };
-    private void createUsers(){       
+
+    private void createUsers(){
         createUsers(ListRole.ADMIN);
         createPatient(ListRole.PATIENT);
-        List<Profession> professionList=professionRepository.findAll();
-        createProfessional(ListRole.PROFESSIONAL, professionList);
+
+        createProfessional(ListRole.PROFESSIONAL);
     }
 
     private Integer calcAge() {
@@ -142,9 +147,9 @@ public class DataBaseSeeders {
         }
     }
 
-    private void createProfessional(ListRole applicationRole, List<Profession> professionList) {
-       
-        for (int index = 0; index < 3; index++) {
+    private void createProfessional(ListRole applicationRole) {
+        List<Profession> professions = professionRepository.findAll();
+        for (int index = 0; index < professions.size(); index++) {
             Professional user = new Professional();
             user.setFirstName(firstNameProfessional[index]);
             user.setEmail(applicationRole.getName().toLowerCase() + (index + 1) + HOST_EMAIL);
@@ -157,10 +162,8 @@ public class DataBaseSeeders {
             user.setProvince("Mendoza");
             user.setRoles(createListRole(applicationRole));
             user.setConsultationPrice(calcAge()*100.3);           
-//            user.setProfessions(professionList.get(index)) ;
-            
-            user.setEnrollment(calcDni());          
-            
+            user.setProfessions(professions.get(index));
+            user.setEnrollment(calcDni());
             userRepository.save(user);
 
         }
