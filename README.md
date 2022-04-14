@@ -4,9 +4,11 @@
 
 ### Team :octocat: :adult:
 
-@Abel3581:alien::argentina:
-@gabynavarro:robot::argentina:
-@padillaTom::guitar::sweden:
+- @Abel3581 :alien: :argentina:
+
+- @gabynavarro :robot: :argentina:
+
+- @padillaTom :guitar: :sweden:
 
 
 
@@ -52,8 +54,7 @@ USERS SEED
 </table>
 
 
-### *By default, 3 users with admin role and 3 users with user role will be created where the {id} in the email* 
-### *is a number from 1 to 4 per role. All the users have "12345678" as password.*
+#### *By default, 3 users with admin role and 3 users with user role will be created where the {id} in the email is a number from 1 to 4 per role. All the users have "12345678" as password.*
 
 
 ROLES SEED
