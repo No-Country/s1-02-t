@@ -1,4 +1,4 @@
-package consultation.by.video.call.model.entity;
+package consultation.by.video.call.model.enums;
 
 public enum ListRole {
 

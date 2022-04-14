@@ -5,7 +5,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import consultation.by.video.call.model.entity.ListRole;
+import consultation.by.video.call.model.enums.ListRole;
 import consultation.by.video.call.model.entity.Role;
 import consultation.by.video.call.model.entity.User;
 import consultation.by.video.call.repository.IRoleRepository;
