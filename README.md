@@ -1,8 +1,8 @@
-# s1-02-t
-Medical consultation by video calls.
+# Medical consultation by video calls.
 
-<h2><a href="http://localhost:8080/swagger-ui/index.html">Link Swagger</a> </h2>
+## s1-02-t
 
+To test the application [Swagger](http://localhost:8080/swagger-ui/index.html)
 
 
 USERS SEED
@@ -64,5 +64,3 @@ ROLES SEED
 </tr>
 </tbody>
 </table>
-
-
