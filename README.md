@@ -1,8 +1,9 @@
 # Medical consultation by video calls :health_worker: :woman_health_worker:
 
-## s1-02-t :wave: :muscle: :bowing_man:
+## s1-02-t :wave: :muscle: 
 
-### Team :octocat: :adult:
+### Team :octocat: :adult: :bowing_man:
+
 
 - @Abel3581 :alien: :argentina:
 
