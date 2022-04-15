@@ -1,10 +1,17 @@
 package consultation.by.video.call.config.seeder;
 
-import consultation.by.video.call.model.entity.Professional;
+import consultation.by.video.call.model.entity.*;
+import consultation.by.video.call.model.enums.EnumState;
+import consultation.by.video.call.model.response.PatientsReponse;
+import consultation.by.video.call.model.response.ProfessionResponse;
+import consultation.by.video.call.repository.*;
+import consultation.by.video.call.service.PatientService;
+import consultation.by.video.call.service.ProfessionService;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import consultation.by.video.call.model.enums.ListRole;
 import consultation.by.video.call.model.entity.Role;
 import consultation.by.video.call.model.entity.User;
@@ -14,6 +21,8 @@ import consultation.by.video.call.model.entity.Patient;
 import consultation.by.video.call.model.entity.Profession;
 import consultation.by.video.call.repository.ProfessionRepository;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -25,11 +34,11 @@ public class DataBaseSeeders {
     private static final String PASSWORD = "12345678";
     private static final String HOST_EMAIL = "@test.com";
     private static final String firstNameUser[] = {"Gabriel", "Abel", "Tomas"};
-    private static final String firstNamePatient[] = {"Laura", "Raquel", "Roberto"};
+    private static final String firstNamePatient[] = {"Laura", "Raquel", "Roberto","Abel","Tomas"};
     private static final String firstNameProfessional[] = {"Tomas", "Eduardo", "Caro","Abel","Fernando"};
     private static final String lastNameUser[] = {"Navarro", "Acevedo", "Padilla"};
     private static final String lastNameProfessional[] = {"Caruana", "Lopez", "Nose","Acevedo","Vals"};
-    private static final String lastNamePatient[] = {"Sanchez", "Lepez", "Astudillo"};
+    private static final String lastNamePatient[] = {"Sanchez", "Lepez", "Astudillo","Prigioni","Bubien"};
     private final Profession [] professionsList = {
             new Profession(1L, "Psicología","Tratamientos para la ansiedad, depresión, stress, parejas. Y mucho más...",
                     "https://firebasestorage.googleapis.com/v0/b/s1-02-t.appspot.com/o/imagePsicologia.jpeg?alt=media&token=77cde0cd-69ab-4743-89bf-2bb51b7930a2",   false),
@@ -48,6 +57,9 @@ public class DataBaseSeeders {
     private final IUserRepository userRepository;
     private final IRoleRepository roleRepository;   
     private final PasswordEncoder passwordEncoder;
+    private final TurnRepository turnRepository;
+    private final PatientRepository patientRepository;
+    private final ProfessionalRepository professionalRepository;
     
 
     @EventListener
@@ -59,15 +71,27 @@ public class DataBaseSeeders {
         if(professionRepository.findAll().isEmpty()){
             createProfessions();
         }
-
-        if(professionRepository.findAll().isEmpty())
-            createProfessions();       
+      
         
         if (userRepository.findAll().isEmpty()) {
             createUsers();
         }
 
+        if(turnRepository.findAll().isEmpty()){
+            createTurns();
+        }
 
+    }
+    // TODO version de prueba, en este mismo metodo se le puede asignar el turno al professional
+    // TODO hay que agregarle al response que devuelva la lista de turnos del professional
+
+    private void createTurns() {
+        List<Patient> patients = patientRepository.findAll();
+        List<Professional> professionals = professionalRepository.findAll();
+        for(long i = 0; i < 5; i++){
+            Turn turn = new Turn(i,LocalDate.now(),LocalTime.now(),EnumState.ACTIVED, professionals.get((int) i),patients.get((int) i),false);
+            turnRepository.save(turn);
+        }
     }
 
     private void createRoles() {
@@ -87,7 +111,6 @@ public class DataBaseSeeders {
     private void createUsers(){
         createUsers(ListRole.ADMIN);
         createPatient(ListRole.PATIENT);
-
         createProfessional(ListRole.PROFESSIONAL);
     }
 
@@ -127,7 +150,7 @@ public class DataBaseSeeders {
 
     private void createPatient(ListRole applicationRole) {
 
-        for (int index = 0; index < 3; index++) {
+        for (int index = 0; index < 5; index++) {
             Patient user = new Patient();
             user.setFirstName(firstNamePatient[index]);
             user.setEmail(applicationRole.getName().toLowerCase() + (index + 1) + HOST_EMAIL);

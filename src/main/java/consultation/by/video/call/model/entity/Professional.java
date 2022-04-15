@@ -1,5 +1,7 @@
 package consultation.by.video.call.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import consultation.by.video.call.model.enums.EnumState;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +10,8 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,5 +43,6 @@ public class Professional extends User {
     public void addTurn(Turn t){
         turnList.add(t);
     }
+
 
 }

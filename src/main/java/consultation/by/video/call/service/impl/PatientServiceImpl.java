@@ -1,7 +1,9 @@
 package consultation.by.video.call.service.impl;
 
+import consultation.by.video.call.model.response.PatientResponseById;
 import consultation.by.video.call.model.response.PatientsReponse;
 import consultation.by.video.call.repository.IUserRepository;
+import consultation.by.video.call.repository.PatientRepository;
 import consultation.by.video.call.service.IUserService;
 import consultation.by.video.call.exception.ParamNotFound;
 import consultation.by.video.call.model.entity.Patient;
@@ -16,11 +18,8 @@ import consultation.by.video.call.repository.TurnRepository;
 import consultation.by.video.call.service.PatientService;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
+
 import javassist.NotFoundException;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PatientServiceImpl implements PatientService {
     
-     private static final String ERROR_CONECTION = "Error trying to connect to BD: ";
+    private static final String ERROR_CONECTION = "Error trying to connect to BD: ";
     @Autowired
     private IUserRepository userRepository;
     @Autowired
@@ -40,6 +39,8 @@ public class PatientServiceImpl implements PatientService {
     private PatientMapper mapperPatient;
     @Autowired
     private TurnMapper mapperTurn;
+    @Autowired
+    private PatientRepository patientRepository;
 
 
     @Transactional
@@ -131,5 +132,15 @@ public class PatientServiceImpl implements PatientService {
         { throw  new ParamNotFound("Empty patient list ");}
         
     return patientsList;
+    }
+
+    @Override
+    public PatientResponseById getPatientById(Long id) {
+        Patient patient = patientRepository.getById(id);
+            if(patient.isDeleted()){
+                throw new ParamNotFound("Eliminated patient");
+            }
+        PatientResponseById response = mapperPatient.toDTOPatient(patient,true);
+        return response;
     }
 }

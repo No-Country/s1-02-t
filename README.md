@@ -1,9 +1,34 @@
-# Medical consultation by video calls.
+# Medical consultation by video calls :health_worker: :woman_health_worker:
 
-## s1-02-t
+## s1-02-t :wave: :muscle: 
+
+### Team :octocat: :adult: :bowing_man:
+
+
+- @Abel3581 :alien: :argentina:
+
+- @gabynavarro :robot: :argentina:
+
+- @padillaTom :guitar: :sweden:
+
+
+
+### PROJECT SETUP
+
+- Postman
+- Maven
+- JDK 11
+- Mysql
+- Spring-Boot
+- Firebase
+- Swagger
+- React Js
+- Bootstrap
+- Html5
+- Javascript
+- Css
 
 To test the application [Swagger](http://localhost:8080/swagger-ui/index.html)
-
 
 USERS SEED
 <table>
@@ -30,8 +55,9 @@ USERS SEED
 </table>
 
 
+#### *By default, 3 users with admin role and 3 users with user role will be created where the {id} in the email is a number from 1 to 4 per role. All the users have "12345678" as password.*
 
-By default, 3 users with admin role and 3 users with user role will be created where the {id} in the email is a number from 1 to 4 per role. All the users have "12345678" as password.
+
 ROLES SEED
 <table>
 <thead>

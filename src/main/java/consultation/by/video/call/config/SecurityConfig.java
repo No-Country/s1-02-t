@@ -78,6 +78,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("https://s1-02-t-preview.netlify.app/").permitAll()
                 .antMatchers(HttpMethod.POST,"/patient/api/v1/turn_patient").permitAll()                
                 .antMatchers(HttpMethod.GET,"/patient/api/v1/patients").permitAll()
+                .antMatchers(HttpMethod.GET,"/patient/api/v1/{id}").permitAll()
                 .antMatchers(HttpMethod.GET,"/turn/api/v1/").permitAll()
                 .antMatchers(HttpMethod.GET,"/turn/api/v1/turns/high").permitAll()
                 .antMatchers(HttpMethod.GET,"/api/v1/turn/{id}").permitAll()
