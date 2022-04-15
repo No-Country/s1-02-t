@@ -2,8 +2,6 @@
 package consultation.by.video.call.model.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import consultation.by.video.call.model.entity.DaySchedule;
-import consultation.by.video.call.model.entity.Professional;
 import consultation.by.video.call.model.enums.EnumState;
 import java.time.LocalDate;
 import java.time.LocalTime;

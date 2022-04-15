@@ -1,9 +1,7 @@
 package consultation.by.video.call.model.response;
 
-import consultation.by.video.call.model.entity.DaySchedule;
-import consultation.by.video.call.model.enums.EnumState;
-import java.time.LocalDate;
-import java.time.LocalTime;
+
+import consultation.by.video.call.model.entity.Schedule;
 import java.util.List;
 
 import lombok.Builder;
@@ -17,8 +15,8 @@ public class ScheduleResponse {
     
     private Long id_professional;
     private String firstName;
-    private String lastName;
-    private List<DaySchedule> daySchedule;
+    private String lastName;    
+    private List<Schedule> daySchedule;
         
    //daySchedule
 //    private Long id_dayschedule;

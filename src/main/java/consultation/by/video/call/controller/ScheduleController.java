@@ -1,15 +1,19 @@
 package consultation.by.video.call.controller;
 
+import consultation.by.video.call.model.entity.Schedule;
 import consultation.by.video.call.model.request.ScheduleRequest;
 import consultation.by.video.call.model.response.ScheduleResponse;
+import consultation.by.video.call.model.response.ScheduleUserResponse;
 import consultation.by.video.call.service.ScheduleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,5 +35,6 @@ public class ScheduleController {
     public ScheduleResponse addSchedule(@Valid @RequestBody ScheduleRequest request) {
         return scheduleService.save(request);
     }
-   
+    
+  
 }
