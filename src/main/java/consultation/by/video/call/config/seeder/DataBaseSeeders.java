@@ -18,7 +18,6 @@ import consultation.by.video.call.repository.ProfessionRepository;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -200,14 +199,12 @@ public class DataBaseSeeders {
 
     private List<Schedule> addSchedule(Professional professional){
         List<DaySchedule> daysSchedule=new ArrayList<>();
-        Schedule s=new Schedule();
-        int indice=ThreadLocalRandom.current().nextInt(0,daySchedule.length-1);
+        Schedule s=new Schedule();    
         List<Schedule> ls=new ArrayList<>();
-         s.setDayMonthYear(LocalDate.parse(daySchedule[indice]));
+         s.setDayMonthYear(LocalDate.parse(daySchedule[ThreadLocalRandom.current().nextInt(0,daySchedule.length-1)]));
             s.setProfessional(professional); 
             s.setHomeWork(daysSchedule);
-            scheduleRepository.save(s);
-            ls.add(s);
+            ls.add(scheduleRepository.save(s));
         for (int index = 0; index < 3 ; index++) {               
                       
             DaySchedule d=new DaySchedule(LocalTime.parse(hoursSchedule[index]),EnumState.ACTIVED,s);  
