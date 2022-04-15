@@ -27,7 +27,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PatientServiceImpl implements PatientService {
-    
+
     private static final String ERROR_CONECTION = "Error trying to connect to BD: ";
     @Autowired
     private IUserRepository userRepository;
@@ -42,11 +42,10 @@ public class PatientServiceImpl implements PatientService {
     @Autowired
     private PatientRepository patientRepository;
 
-
     @Transactional
     @Override
     public PatientTurnResponse savePatientTurn(PatientTurnRequest request) {
-       
+
         Patient patient;
         try {
             patient = (Patient) userService.getInfoUser();
@@ -56,35 +55,33 @@ public class PatientServiceImpl implements PatientService {
 
         Professional professional = (Professional) userRepository.findById(request.getProfessional().getId()).orElseThrow();
         request.getProfessional().setLastName(professional.getLastName());
-        request.getProfessional().setFirstName(professional.getFirstName());        
-        PatientTurnResponse patientTurn = mapperPatient.toEntity(request, dayDate(request.getDayMonthYear().toString()));        
+        request.getProfessional().setFirstName(professional.getFirstName());
+        PatientTurnResponse patientTurn = mapperPatient.toEntity(request, dayDate(request.getDayMonthYear().toString()));
         try {
-            Turn turn =turnRepository.save(mapperTurn.toDTO(patientTurn, professional, patient));
-             patientTurns(patient, turn, professional);   
+            Turn turn = turnRepository.save(mapperTurn.toDTO(patientTurn, professional, patient));
+            patientTurns(patient, turn, professional);
         } catch (Exception e) {
-             throw new ParamNotFound(ERROR_CONECTION+ e.getMessage());
-        }    
+            throw new ParamNotFound(ERROR_CONECTION + e.getMessage());
+        }
         return patientTurn;
     }
 
     @Transactional
-    private void patientTurns(Patient patient, Turn t, Professional professional){
-        List<Turn> newTurns=patient.getTurnList();
+    private void patientTurns(Patient patient, Turn t, Professional professional) {
+        List<Turn> newTurns = patient.getTurnList();
         newTurns.add(t);
         patient.setTurnList(newTurns);
-        List<Professional> newProfessional=patient.getProfessionals();
+        List<Professional> newProfessional = patient.getProfessionals();
         newProfessional.add(professional);
         patient.setProfessionals(newProfessional);
         try {
-            userRepository.save(patient); 
+            userRepository.save(patient);
         } catch (Exception e) {
-              throw new ParamNotFound(ERROR_CONECTION +e.getMessage() );
+            throw new ParamNotFound(ERROR_CONECTION + e.getMessage());
         }
-               
+
     }
-    
-    
-    
+
     private String dayDate(String date) {
         String day = null;
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -97,50 +94,58 @@ public class PatientServiceImpl implements PatientService {
         GregorianCalendar dateCalendar = new GregorianCalendar();
         dateCalendar.setTime(dateCurrent);
         int dayWeek = dateCalendar.get(Calendar.DAY_OF_WEEK);
-        
+
         switch (dayWeek) {
-            case 1: day= "Domingo";
+            case 1:
+                day = "Domingo";
                 break;
-            case 2: day = "Lunes";
+            case 2:
+                day = "Lunes";
                 break;
-            case 3: day = "Martes";
+            case 3:
+                day = "Martes";
                 break;
-            case 4: day = "Miércoles";
+            case 4:
+                day = "Miércoles";
                 break;
-            case 5: day = "Juevess";
+            case 5:
+                day = "Juevess";
                 break;
-            case 6: day = "Viernes";
+            case 6:
+                day = "Viernes";
                 break;
-            case 7: day = "Sábado";
+            case 7:
+                day = "Sábado";
                 break;
             default:
                 throw new AssertionError();
-        }        
+        }
         return day;
     }
 
     @Override
     public List<PatientsReponse> getPatients() {
-        List<User> users= userRepository.findAll();
-        List<PatientsReponse> patientsList=new ArrayList();
+        List<User> users = userRepository.findAll();
+        List<PatientsReponse> patientsList = new ArrayList();
         for (User patient : users) {
-            if(patient.getRoles().get(0).getName().equals("ROLE_PATIENT")){            
-            patientsList.add( mapperPatient.toDTO((Patient) patient));
+            if (patient.getRoles().get(0).getName().equals("ROLE_PATIENT")) {
+                patientsList.add(mapperPatient.toDTO((Patient) patient));
             }
         }
-        if(patientsList.isEmpty())
-        { throw  new ParamNotFound("Empty patient list ");}
-        
-    return patientsList;
+        if (patientsList.isEmpty()) {
+            throw new ParamNotFound("Empty patient list ");
+        }
+
+        return patientsList;
     }
 
     @Override
     public PatientResponseById getPatientById(Long id) {
         Patient patient = patientRepository.getById(id);
-            if(patient.isDeleted()){
-                throw new ParamNotFound("Eliminated patient");
-            }
-        PatientResponseById response = mapperPatient.toDTOPatient(patient,true);
+        if (patient.isDeleted()) {
+            throw new ParamNotFound("Eliminated patient");
+        }
+        PatientResponseById response = mapperPatient.toDTOPatient(patient, true);
         return response;
     }
 }
