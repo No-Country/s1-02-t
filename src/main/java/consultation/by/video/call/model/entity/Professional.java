@@ -38,7 +38,7 @@ public class Professional extends User {
     @OneToOne (mappedBy = "professional", cascade = CascadeType.ALL)
     private Schedule schedule;
 
-    @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL)
     List<Turn> turnList = new ArrayList<>();
 
     public void addTurn(Turn t){
