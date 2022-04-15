@@ -28,7 +28,7 @@ public class ScheduleController {
     @PostMapping("/add")
     @ApiOperation(value = "Add info Turn patient  & professional", notes = "Return patient")
     @ResponseStatus(HttpStatus.CREATED)
-    public ScheduleResponse createTurnPatient(@Valid @RequestBody ScheduleRequest request) {
+    public ScheduleResponse addSchedule(@Valid @RequestBody ScheduleRequest request) {
         return scheduleService.save(request);
     }
    

@@ -32,10 +32,10 @@ public class Professional extends User {
     @JoinColumn(name = "profession_id",insertable = true)
     private Profession professions;
 
-    @OneToOne (mappedBy = "professional", cascade = CascadeType.ALL)
-    private Schedule schedule;
+    @OneToMany (mappedBy = "professional", cascade = CascadeType.ALL)
+    private List<Schedule> schedule;
 
-    @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL)
     List<Turn> turnList = new ArrayList<>();
 
     public void addTurn(Turn t){

@@ -1,9 +1,12 @@
 
 package consultation.by.video.call.model.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import consultation.by.video.call.model.entity.DaySchedule;
 import consultation.by.video.call.model.entity.Professional;
 import consultation.by.video.call.model.enums.EnumState;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -18,9 +21,11 @@ import lombok.Setter;
 @Builder @Getter @Setter
 public class ScheduleRequest {
     
-    private Professional professional;
-    private List<DaySchedule> daySchedule;
+
+    @JsonFormat(pattern="dd/MM/yyyy")    
+    private LocalDate day; 
+    private List<LocalTime> hours;
    
     @Enumerated(value = EnumType.STRING)
-    private EnumState status;
+    private EnumState status=EnumState.ACTIVED;
 }

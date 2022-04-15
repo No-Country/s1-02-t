@@ -1,11 +1,10 @@
 package consultation.by.video.call.service;
 
-import consultation.by.video.call.model.enums.EnumState;
-import consultation.by.video.call.model.response.TurnsPatientResponse;
-import java.util.List;
+import consultation.by.video.call.model.request.DayScheduleRequest;
+import consultation.by.video.call.model.response.DayScheduleResponse;
 
 
 public interface  DayScheduleService {
  
-
+    DayScheduleResponse save(DayScheduleRequest request);
 }

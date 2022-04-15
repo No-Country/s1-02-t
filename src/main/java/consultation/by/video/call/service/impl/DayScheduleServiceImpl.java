@@ -1,21 +1,16 @@
 package consultation.by.video.call.service.impl;
 
 import consultation.by.video.call.repository.IUserRepository;
-import consultation.by.video.call.exception.ParamNotFound;
-import consultation.by.video.call.model.entity.Turn;
-import consultation.by.video.call.model.enums.EnumState;
 import consultation.by.video.call.model.mapper.TurnMapper;
-import consultation.by.video.call.model.response.TurnsPatientResponse;
+import consultation.by.video.call.model.request.DayScheduleRequest;
+import consultation.by.video.call.model.response.DayScheduleResponse;
 import consultation.by.video.call.repository.TurnRepository;
-import consultation.by.video.call.service.TurnService;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import consultation.by.video.call.service.DayScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DayScheduleServiceImpl implements TurnService {
+public class DayScheduleServiceImpl implements DayScheduleService {
 
     @Autowired
     private IUserRepository userRepository; 
@@ -23,31 +18,12 @@ public class DayScheduleServiceImpl implements TurnService {
     private TurnMapper turnMapper;
     @Autowired
     private TurnRepository turnRepository;
+
+    @Override
+    public DayScheduleResponse save(DayScheduleRequest request) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
  
 
-    @Override
-    public TurnsPatientResponse getTurnById(Long Id) {
-        Turn t= turnRepository.findById(Id).orElseThrow();
-        return turnMapper.toDtResponse(t);               
-    }
-
-    @Override
-    public List<TurnsPatientResponse> getAllTurns() {
-         return turnRepository.findAll().stream()
-                .map( i -> turnMapper.toDtResponse(i) )
-                .collect(Collectors.toList());
-    }
-    
-    @Override
-    public List<TurnsPatientResponse> getAllTurnsActived(EnumState high) {
-       List<Turn> turnsList= turnRepository.findByHigh(high);
-        if (turnsList.isEmpty()) {
-           throw new ParamNotFound("Parameter does not work or shift list empty");
-        }
-       List <TurnsPatientResponse> listResponse=new ArrayList<>();
-        for (Turn turn : turnsList) {
-            listResponse.add(turnMapper.toDtResponse(turn));
-        }        
-        return listResponse;
-    }
+   
 }
