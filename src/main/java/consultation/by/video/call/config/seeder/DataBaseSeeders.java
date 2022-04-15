@@ -7,7 +7,6 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import consultation.by.video.call.model.enums.ListRole;
 import consultation.by.video.call.model.entity.Role;
 import consultation.by.video.call.model.entity.User;
@@ -15,13 +14,14 @@ import consultation.by.video.call.repository.IRoleRepository;
 import consultation.by.video.call.repository.IUserRepository;
 import consultation.by.video.call.model.entity.Patient;
 import consultation.by.video.call.model.entity.Profession;
-import consultation.by.video.call.model.response.ScheduleResponse;
 import consultation.by.video.call.repository.ProfessionRepository;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -48,7 +48,7 @@ public class DataBaseSeeders {
         new Profession(5L, "Psiquiatría", "Es la especialidad médica dedicada al estudio de los trastornos mentales de origen genético o neurológico con el objetivo de prevenir, evaluar, diagnosticar, tratar y rehabilitar a las personas con trastornos mentales, y asegurar la autonomía y la adaptación del individuo a las condiciones de su existencia.",
         "https://firebasestorage.googleapis.com/v0/b/s1-02-t.appspot.com/o/imagePsiquiatria.avif?alt=media&token=21273673-a39d-42f7-90de-1d832ab99201",
          false),};
-    private static final String daySchedule[]={"11/06/2022","15/06/2022","17/06/2022","21/06/2022","18/06/2022","01/06/2022"};
+    private static final String daySchedule[]={"2022-06-11","2022-06-15","2022-06-17","2022-06-21","2022-06-22","2022-06-02"};
     private static final String hoursSchedule[]={"08:00","09:00","10:00","16:00","18:00","20:00"};
     private final ProfessionRepository professionRepository;
     private final IUserRepository userRepository;
@@ -185,7 +185,7 @@ public class DataBaseSeeders {
             user.setConsultationPrice(calcAge() * 100.3);
             user.setProfessions(professions.get(index));
             user.setEnrollment(calcDni());
-            userRepository.save(user);
+//            userRepository.save(user);
             addSchedule(userRepository.save(user));
         }
     }
@@ -201,15 +201,16 @@ public class DataBaseSeeders {
     private List<Schedule> addSchedule(Professional professional){
         List<DaySchedule> daysSchedule=new ArrayList<>();
         Schedule s=new Schedule();
+        int indice=ThreadLocalRandom.current().nextInt(0,daySchedule.length-1);
         List<Schedule> ls=new ArrayList<>();
-         s.setDayMonthYear(LocalDate.now());
+         s.setDayMonthYear(LocalDate.parse(daySchedule[indice]));
             s.setProfessional(professional); 
             s.setHomeWork(daysSchedule);
             scheduleRepository.save(s);
             ls.add(s);
         for (int index = 0; index < 3 ; index++) {               
                       
-            DaySchedule d=new DaySchedule(LocalTime.now(),EnumState.ACTIVED,s);  
+            DaySchedule d=new DaySchedule(LocalTime.parse(hoursSchedule[index]),EnumState.ACTIVED,s);  
             daysSchedule.add(d);
             dayScheduleRepository.save(d);
         } 
