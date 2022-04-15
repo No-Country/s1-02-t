@@ -63,9 +63,7 @@ public class DataBaseSeeders {
         if(professionRepository.findAll().isEmpty()){
             createProfessions();
         }
-
-        if(professionRepository.findAll().isEmpty())
-            createProfessions();       
+      
         
         if (userRepository.findAll().isEmpty()) {
             createUsers();
