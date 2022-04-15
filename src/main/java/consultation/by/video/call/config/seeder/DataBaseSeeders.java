@@ -12,6 +12,14 @@ import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import consultation.by.video.call.model.enums.ListRole;
+import consultation.by.video.call.model.entity.Role;
+import consultation.by.video.call.model.entity.User;
+import consultation.by.video.call.repository.IRoleRepository;
+import consultation.by.video.call.repository.IUserRepository;
+import consultation.by.video.call.model.entity.Patient;
+import consultation.by.video.call.model.entity.Profession;
+import consultation.by.video.call.repository.ProfessionRepository;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;

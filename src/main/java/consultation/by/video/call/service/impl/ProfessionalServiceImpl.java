@@ -1,6 +1,6 @@
 package consultation.by.video.call.service.impl;
 
-import consultation.by.video.call.model.entity.ListRole;
+import consultation.by.video.call.model.enums.ListRole;
 import consultation.by.video.call.filter.JwtUtil;
 import consultation.by.video.call.service.IRoleService;
 import consultation.by.video.call.model.entity.Professional;

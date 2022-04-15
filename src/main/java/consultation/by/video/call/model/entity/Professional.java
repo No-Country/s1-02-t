@@ -1,6 +1,5 @@
 package consultation.by.video.call.model.entity;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import consultation.by.video.call.model.enums.EnumState;
 import lombok.AllArgsConstructor;
@@ -35,8 +34,8 @@ public class Professional extends User {
     @JoinColumn(name = "profession_id",insertable = true)
     private Profession professions;
 
-    @OneToOne (mappedBy = "professional", cascade = CascadeType.ALL)
-    private Schedule schedule;
+    @OneToMany (mappedBy = "professional", cascade = CascadeType.ALL)
+    private List<Schedule> schedule;
 
     @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL)
     List<Turn> turnList = new ArrayList<>();
