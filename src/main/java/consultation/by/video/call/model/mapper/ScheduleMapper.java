@@ -6,7 +6,6 @@ import consultation.by.video.call.model.entity.Professional;
 import consultation.by.video.call.model.entity.Schedule;
 import consultation.by.video.call.model.request.ScheduleRequest;
 import consultation.by.video.call.model.response.ScheduleResponse;
-import consultation.by.video.call.model.response.ScheduleUserResponse;
 import consultation.by.video.call.repository.ScheduleRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,12 +32,5 @@ public class ScheduleMapper {
               .homeWork(daySchedule)    
                 .build();
     }
-   public ScheduleUserResponse  UsertoEntitySchedule(Professional professional){
-       return ScheduleUserResponse.builder()
-               .id_professional(professional.getId())
-               .firstName(professional.getFirstName())
-               .lastName(professional.getLastName())
-                .daySchedule(professional.getSchedule())
-               .build();
-   }
+
 }
