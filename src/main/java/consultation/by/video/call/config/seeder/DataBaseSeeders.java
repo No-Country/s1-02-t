@@ -83,7 +83,6 @@ public class DataBaseSeeders {
         for(long i = 0; i < 5; i++){
             Turn turn = new Turn(i,LocalDate.now(),LocalTime.now(),EnumState.ACTIVED, professionals.get((int) i),patients.get((int) i),false);
             turnRepository.save(turn);
-           // professionals.get((int) i).addTurn(turn);
         }
     }
 
