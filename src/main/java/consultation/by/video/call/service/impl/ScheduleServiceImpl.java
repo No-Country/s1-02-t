@@ -8,7 +8,6 @@ import consultation.by.video.call.model.mapper.DayScheduleMapper;
 import consultation.by.video.call.model.mapper.ScheduleMapper;
 import consultation.by.video.call.model.request.ScheduleRequest;
 import consultation.by.video.call.model.response.ScheduleResponse;
-import consultation.by.video.call.model.response.ScheduleUserResponse;
 import consultation.by.video.call.repository.DayScheduleRepository;
 import consultation.by.video.call.repository.ScheduleRepository;
 import consultation.by.video.call.service.IUserService;
