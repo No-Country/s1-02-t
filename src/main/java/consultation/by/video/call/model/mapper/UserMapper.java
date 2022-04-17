@@ -1,8 +1,10 @@
 package consultation.by.video.call.model.mapper;
 
+import consultation.by.video.call.model.entity.Professional;
 import consultation.by.video.call.model.entity.User;
 import consultation.by.video.call.model.request.UserRegisterRequest;
 import consultation.by.video.call.model.request.UserRequest;
+import consultation.by.video.call.model.response.TurnsPatientResponse;
 import consultation.by.video.call.model.response.UserRegisterResponse;
 import consultation.by.video.call.model.response.UserResponse;
 import consultation.by.video.call.model.response.UserRoleResponse;
@@ -13,6 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @Component
 public class UserMapper {
 
@@ -20,6 +24,8 @@ public class UserMapper {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private FirebaseService service;
+    @Autowired
+    private TurnMapper turnMapper;
 
     public Patient userDto2Entity(UserRegisterRequest request, MultipartFile[] file) {
         Patient user = new Patient();
@@ -35,7 +41,7 @@ public class UserMapper {
         user.setProvince(request.getProvince());
         user.setRoles(null);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        return user;        
+        return user;
     }
 
     public UserRegisterResponse userEntity2Dto(Patient user) {
@@ -45,10 +51,11 @@ public class UserMapper {
         userRegisterResponse.setLastName(user.getLastName());
         userRegisterResponse.setEmail(user.getEmail());
         userRegisterResponse.setRoles(user.getRoles());
-       
+
         return userRegisterResponse;
     }
-//
+
+    //
     public User userDtoEntity(User entity, UserRequest request) {
         entity.setAge(request.getAge());
         entity.setEmail(request.getEmail());
@@ -59,30 +66,32 @@ public class UserMapper {
         entity.setFirstName(request.getFirst_name());
         entity.setLastName(request.getLast_name());
         entity.setImageUrl(request.getImage_url());
-        entity.setProvince(request.getProvince());      
+        entity.setProvince(request.getProvince());
         entity.setPassword(passwordEncoder.encode(request.getPassword()));
         return entity;
 
     }
-    
-    
+
+
     public UserResponse convertTo(User userInstance) {
         UserResponse userResponse = new UserResponse();
-        userResponse.setId(userInstance.getId());
-        userResponse.setFirt_name(userInstance.getFirstName());
-        userResponse.setAge(userInstance.getAge() );
-        userResponse.setDni(userInstance.getDni());
-        userResponse.setLast_name(userInstance.getLastName());        
-        userResponse.setUsername(userInstance.getUsername());
-        userResponse.setCity(userInstance.getCity());
-        userResponse.setCountry(userInstance.getCountry());
-        userResponse.setEmail(userInstance.getEmail());
-        userResponse.setPassword(userInstance.getPassword());
-        userResponse.setImage_url(userInstance.getImageUrl());
-        userResponse.setProvince(userInstance.getProvince());
-        userResponse.setRoles(userInstance.getRoles());
+            userResponse.setId(userInstance.getId());
+            userResponse.setFirt_name(userInstance.getFirstName());
+            userResponse.setAge(userInstance.getAge());
+            userResponse.setDni(userInstance.getDni());
+            userResponse.setLast_name(userInstance.getLastName());
+            userResponse.setUsername(userInstance.getUsername());
+            userResponse.setCity(userInstance.getCity());
+            userResponse.setCountry(userInstance.getCountry());
+            userResponse.setEmail(userInstance.getEmail());
+            userResponse.setPassword(userInstance.getPassword());
+            userResponse.setImage_url(userInstance.getImageUrl());
+            userResponse.setProvince(userInstance.getProvince());
+            userResponse.setRoles(userInstance.getRoles());
         return userResponse;
     }
+
+
     
     public UserRoleResponse convertToUserRole(User user) {
         UserRoleResponse userResponse = new UserRoleResponse();

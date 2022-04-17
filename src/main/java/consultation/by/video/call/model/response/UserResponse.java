@@ -27,5 +27,6 @@ public class UserResponse {
     private String province;
     private String city;
     private List<Role> roles;
+    private List<TurnsPatientResponse> turns;
 
 }
