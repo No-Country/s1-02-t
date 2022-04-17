@@ -4,10 +4,7 @@ import consultation.by.video.call.model.entity.Professional;
 import consultation.by.video.call.model.entity.User;
 import consultation.by.video.call.model.request.UserRegisterRequest;
 import consultation.by.video.call.model.request.UserRequest;
-import consultation.by.video.call.model.response.TurnsPatientResponse;
-import consultation.by.video.call.model.response.UserRegisterResponse;
-import consultation.by.video.call.model.response.UserResponse;
-import consultation.by.video.call.model.response.UserRoleResponse;
+import consultation.by.video.call.model.response.*;
 import consultation.by.video.call.model.entity.Patient;
 import consultation.by.video.call.service.FirebaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +23,8 @@ public class UserMapper {
     private FirebaseService service;
     @Autowired
     private TurnMapper turnMapper;
+    @Autowired
+    private ScheduleMapper scheduleMapper;
 
     public Patient userDto2Entity(UserRegisterRequest request, MultipartFile[] file) {
         Patient user = new Patient();
@@ -73,24 +72,58 @@ public class UserMapper {
     }
 
 
-    public UserResponse convertTo(User userInstance) {
+    public UserResponse convertTo(User userInstance, boolean loadTurns, boolean loadSchedule) {
         UserResponse userResponse = new UserResponse();
-            userResponse.setId(userInstance.getId());
-            userResponse.setFirt_name(userInstance.getFirstName());
-            userResponse.setAge(userInstance.getAge());
-            userResponse.setDni(userInstance.getDni());
-            userResponse.setLast_name(userInstance.getLastName());
-            userResponse.setUsername(userInstance.getUsername());
-            userResponse.setCity(userInstance.getCity());
-            userResponse.setCountry(userInstance.getCountry());
-            userResponse.setEmail(userInstance.getEmail());
-            userResponse.setPassword(userInstance.getPassword());
-            userResponse.setImage_url(userInstance.getImageUrl());
-            userResponse.setProvince(userInstance.getProvince());
-            userResponse.setRoles(userInstance.getRoles());
+            if (userInstance instanceof Professional) {
+                userResponse.setId(userInstance.getId());
+                userResponse.setFirt_name(userInstance.getFirstName());
+                userResponse.setAge(userInstance.getAge());
+                userResponse.setDni(userInstance.getDni());
+                userResponse.setLast_name(userInstance.getLastName());
+                userResponse.setUsername(userInstance.getUsername());
+                userResponse.setCity(userInstance.getCity());
+                userResponse.setCountry(userInstance.getCountry());
+                userResponse.setEmail(userInstance.getEmail());
+                userResponse.setPassword(userInstance.getPassword());
+                userResponse.setImage_url(userInstance.getImageUrl());
+                userResponse.setProvince(userInstance.getProvince());
+                userResponse.setRoles(userInstance.getRoles());
+                userResponse.setEnrollment(((Professional) userInstance).getEnrollment());
+                userResponse.setConsultationPrice(((Professional) userInstance).getConsultationPrice());
+
+                if(loadTurns){
+                    List<TurnsPatientResponse> turns = turnMapper.turnEntitySet2DtoList(((Professional) userInstance).getTurnList());
+                    userResponse.setTurns(turns);
+                }
+                if(loadSchedule){
+                    List<ScheduleResponse> schedules = scheduleMapper.scheduleEntity2DtoList(((Professional) userInstance).getSchedule());
+                    userResponse.setSchedules(schedules);
+                }
+            }
+
+            if(userInstance instanceof Patient){
+                userResponse.setId(userInstance.getId());
+                userResponse.setFirt_name(userInstance.getFirstName());
+                userResponse.setAge(userInstance.getAge());
+                userResponse.setDni(userInstance.getDni());
+                userResponse.setLast_name(userInstance.getLastName());
+                userResponse.setUsername(userInstance.getUsername());
+                userResponse.setCity(userInstance.getCity());
+                userResponse.setCountry(userInstance.getCountry());
+                userResponse.setEmail(userInstance.getEmail());
+                userResponse.setPassword(userInstance.getPassword());
+                userResponse.setImage_url(userInstance.getImageUrl());
+                userResponse.setProvince(userInstance.getProvince());
+                userResponse.setRoles(userInstance.getRoles());
+
+                if(loadTurns){
+                    List<TurnsPatientResponse> turns = turnMapper.turnEntitySet2DtoList(((Patient) userInstance).getTurnList());
+                    userResponse.setTurns(turns);
+                }
+            }
+
         return userResponse;
     }
-
 
     
     public UserRoleResponse convertToUserRole(User user) {
