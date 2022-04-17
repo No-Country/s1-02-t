@@ -5,7 +5,11 @@ import consultation.by.video.call.model.entity.DaySchedule;
 import consultation.by.video.call.model.entity.Schedule;
 import consultation.by.video.call.model.enums.EnumState;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+
+import consultation.by.video.call.model.response.DayScheduleResponse;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -18,4 +22,6 @@ public class DayScheduleMapper {
                 .status(EnumState.ACTIVED)
                 .build();
     }
+
+
 }
