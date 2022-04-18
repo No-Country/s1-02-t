@@ -17,7 +17,7 @@ public class ScheduleResponse {
     private Long id_professional;
     private String firstName;
     private String lastName;    
-    private List<DaySchedule> daySchedule;
+    private List<DayScheduleResponse> daySchedule;
         
    //daySchedule
 //    private Long id_dayschedule;

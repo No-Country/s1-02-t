@@ -54,7 +54,11 @@ public class ScheduleMapper {
         response.setId_professional(s.getProfessional().getId());
         response.setLastName(s.getProfessional().getLastName());
         response.setFirstName(s.getProfessional().getFirstName());
-        response.setDaySchedule(s.getHomeWork());
+
+        if(loadDaySchedule){
+            List<DayScheduleResponse> daySchedules = dayScheduleMapper.dayScheduleEntity2DtoList(s.getHomeWork());
+            response.setDaySchedule(daySchedules);
+        }
         return response;
     }
 }
