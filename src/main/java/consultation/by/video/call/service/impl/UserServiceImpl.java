@@ -114,8 +114,7 @@ public class UserServiceImpl  implements UserDetailsService, IRegisterUserServic
             String username = ((User) userInstance).getUsername();//            
         }else{
             String username = userInstance.toString();
-      }
-        System.out.println("EL USSS ES: "+ userInstance.toString());
+      }       
         return userRepository.findByEmail(userInstance.toString());
     }
 
