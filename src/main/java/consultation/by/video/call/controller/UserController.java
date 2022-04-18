@@ -11,6 +11,7 @@ import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +32,7 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
+    @PreAuthorize("hasRole('ROLE_PROFESSIONAL') OR hasRole('ROLE_ADMIN')")
     @GetMapping("/me")
     @ApiOperation(value = "Get info user", notes = "Return a user info")
     public ResponseEntity<?> getMyUser() {
@@ -41,7 +43,7 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }   
     }
-
+    @PreAuthorize("hasRole('ROLE_PROFESSIONAL') OR hasRole('ROLE_ADMIN')")
     @GetMapping("/{id}")
     @ApiOperation(value = "Get user by id", notes = "Return a user by id")
     public ResponseEntity<?> getUserById(@PathVariable Long id) {   

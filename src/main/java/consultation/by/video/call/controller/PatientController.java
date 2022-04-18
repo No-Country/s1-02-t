@@ -42,6 +42,7 @@ public class PatientController {
     public List<PatientsReponse> getAllPatients() {
         return patientService.getPatients();
     }
+
     @PreAuthorize("hasRole('ROLE_PROFESSIONAL') OR hasRole('ROLE_ADMIN')")
     //TODO devuelve un paciente por id con sus turnos
     @GetMapping("/{id}")

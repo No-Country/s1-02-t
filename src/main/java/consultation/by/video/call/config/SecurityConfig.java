@@ -3,6 +3,7 @@ package consultation.by.video.call.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import consultation.by.video.call.filter.JwtRequestFilters;
+import consultation.by.video.call.model.enums.ListRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -95,7 +96,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET,"/user/{id}").permitAll()
                 .antMatchers(HttpMethod.DELETE,"/user/{id}").permitAll() //hasAnyAuthority("ROLE_ADMIN")
                 .antMatchers(HttpMethod.GET,"/user/me").permitAll()
-                .antMatchers(HttpMethod.GET,"/user/me").permitAll()
                 .antMatchers(HttpMethod.GET,"/user/filter").permitAll()
                 .antMatchers(HttpMethod.POST,"/user/roles/{id}").permitAll()
                 .antMatchers("https://s1-02-t-preview.netlify.app/").permitAll()
@@ -122,7 +122,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET,"/news/all").permitAll()
                 .antMatchers(HttpMethod.DELETE,"/news/{id}").permitAll()
                 .antMatchers(HttpMethod.PUT,"/news/{id}").permitAll()
-                .antMatchers(HttpMethod.GET,"/professional/me").permitAll()
                 .antMatchers(publicEndpoint).permitAll()
                 .anyRequest().authenticated()
                 .and()

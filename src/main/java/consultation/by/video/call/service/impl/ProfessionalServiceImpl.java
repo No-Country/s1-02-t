@@ -57,7 +57,7 @@ public class ProfessionalServiceImpl implements ProfessionalService {
         professional.setRoles(roles);
         Professional saved = professionalRepository.save(professional);
         ProfessionalResponse response = professionalMapper.toDto(saved);
-        response.setToken(jwtUtil.generateToken(saved));
+        response.setToken(jwtUtil.generateTokenProfessional(saved));
         return response;
     }
 

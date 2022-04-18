@@ -2,6 +2,7 @@ package consultation.by.video.call.filter;
 
 
 import consultation.by.video.call.model.entity.Patient;
+import consultation.by.video.call.model.entity.Professional;
 import consultation.by.video.call.model.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -57,6 +58,15 @@ public class JwtUtil {
 	        .collect(Collectors.joining(","));
         return createToken(user.getUsername(),authorites);
     }
+
+    public String generateTokenProfessional(UserDetails userDetails) {
+        Professional user = (Professional) userDetails;
+        final String authorites=userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
+        return createToken(user.getUsername(),authorites);
+    }
+
     public String generateToken(UserDetails userDetails) {
         final String authorites=userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
