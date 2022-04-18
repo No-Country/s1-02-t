@@ -26,7 +26,7 @@ public class DaySchedule {
     @Enumerated(value = EnumType.STRING)
     private EnumState status;
     
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "fk_schedule", updatable = false, nullable = false)
     private Schedule schedule;
     
