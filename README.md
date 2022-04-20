@@ -9,9 +9,9 @@
 - Gabriel Navarro - *Desarrollador Backend, Tester, Documentación* - :brain:[gabynavarro](https://github.com/gabynavarro)
 
 
-## El por qué y para qué
+## El por que y para que
 Proyecto realizado con el fin de lograr una fluidez entre pacientes y profesionales de una entidad X, por medio de esta app entonces
-El paciente puede:
+<br>El paciente puede:
 - Registrarse y editar su perfil
 - Consultar profesiones 
 - Elegir un profesional
