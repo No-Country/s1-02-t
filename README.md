@@ -1,18 +1,38 @@
 # Medical consultation by video calls :health_worker: :woman_health_worker:
 
-## s1-02-t :wave: :muscle: 
+## s1-02-t Solo Backend :wave: :muscle: 
 
 ### Team :octocat: :adult: :bowing_man:
 
-
-- @Abel3581 :alien: :argentina:
-
-- @gabynavarro :robot: :argentina:
-
-- @padillaTom :guitar: :sweden:
+- Tomas Padilla - *Desarrollador Full Stack. Tester* - :robot:[PadillaTom](https://github.com/PadillaTom)
+- Abel Acevedo- *Desarrollador Backend, Tester, Documentación* - :space_invader:[Abel3581](https://github.com/Abel3581)
+- Gabriel Navarro - *Desarrollador Backend, Tester, Documentación* - :brain:[gabynavarro](https://github.com/gabynavarro)
 
 
-
+## El por que y para que
+Proyecto realizado con el fin de lograr una fluidez entre pacientes y profesionales de una entidad X, por medio de esta app entonces
+El paciente puede:
+- Registrarse y editar su perfil
+- Consultar profesiones 
+- Elegir un profesional
+- Consultar la agenda del profesional.
+- Elegir días y horarios y reservar un turno
+ 
+Como profesional puede:
+- Registrarse y editar su perfil
+- Realizar una agenda por día y horarios de atención 
+- Consultar los turnos asignados
+- Llenar y consultar historia clínica del paciente-
+- 
+Como Admin puede:
+- Asignar nuevos roles
+- Crear pacientes y profesionales
+- Consultar listados de pacientes y profesionales
+- Eliminar dar de baja cualquier usuario de la app
+- Editar usuarios de la app
+- Consultar listados de turnos asignados 
+- Consultar turnos reservados
+- 
 ### PROJECT SETUP
 
 - Postman
@@ -22,13 +42,19 @@
 - Spring-Boot
 - Firebase
 - Swagger
-- React Js
-- Bootstrap
-- Html5
-- Javascript
-- Css
-
+### BACKEND
+- [Dbeaver-ce](https://dbeaver.io/download/) - Herramienta de administraćión de datos 
+- [DbVisualizer](https://www.dbvis.com/) - Herramienta de administración de datos 
+- [Pgadmin 4](https://www.pgadmin.org/download/) - Herramienta de administración de datos (Herramienta de postgres)
+- [Java 11](https://www.oracle.com/ar/java/technologies/javase/jdk11-archive-downloads.html) - Lenguaje de programacion
+- [Maven 4.0.0](https://maven.apache.org/index.html) - Manejador de dependencias
+- [Spring-Boot](https://spring.io/projects/spring-boot) - Framework
 To test the application [Swagger](http://localhost:8080/swagger-ui/index.html)
+
+### Linkedin 
+- :robot:[Tomás](https://www.linkedin.com/in/padillatom/)
+- :space_invader:[Abel](https://www.linkedin.com/in/abel-fernando-acevedo/)
+- :brain:[Gabriel](https://www.linkedin.com/in/gabriel-navarro-233388219/)
 
 USERS SEED
 <table>
@@ -44,8 +70,8 @@ USERS SEED
 <td>admin</td>
 </tr>
 <tr>
-<td>user{id}@test.com</td>
-<td>user</td>
+<td>patient{id}@test.com</td>
+<td>patient</td>
 </tr>
   <tr>
 <td>professional{id}@test.com</td>
