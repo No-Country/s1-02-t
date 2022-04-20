@@ -28,7 +28,7 @@ Como Admin puede:
 - Asignar nuevos roles
 - Crear pacientes y profesionales
 - Consultar listados de pacientes y profesionales
-- Eliminar dar de baja cualquier usuario de la app
+- Eliminar y dar de baja cualquier usuario de la app
 - Editar usuarios de la app
 - Consultar listados de turnos asignados 
 - Consultar turnos reservados
@@ -52,7 +52,7 @@ Como Admin puede:
 To test the application [Swagger](http://localhost:8080/swagger-ui/index.html)
 
 ### Linkedin 
-- :robot:[Tomás Padila](https://www.linkedin.com/in/padillatom/)
+- :robot:[Tomás Padilla](https://www.linkedin.com/in/padillatom/)
 - :space_invader:[Abel Acevedo](https://www.linkedin.com/in/abel-fernando-acevedo/)
 - :brain:[Gabriel Navarro](https://www.linkedin.com/in/gabriel-navarro-233388219/)
 
