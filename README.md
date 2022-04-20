@@ -9,7 +9,7 @@
 - Gabriel Navarro - *Desarrollador Backend, Tester, Documentación* - :brain:[gabynavarro](https://github.com/gabynavarro)
 
 
-## El por que y para que
+## El por qué y para qué
 Proyecto realizado con el fin de lograr una fluidez entre pacientes y profesionales de una entidad X, por medio de esta app entonces
 El paciente puede:
 - Registrarse y editar su perfil
@@ -45,16 +45,16 @@ Como Admin puede:
 ### BACKEND
 - [Dbeaver-ce](https://dbeaver.io/download/) - Herramienta de administraćión de datos 
 - [DbVisualizer](https://www.dbvis.com/) - Herramienta de administración de datos 
-- [Pgadmin 4](https://www.pgadmin.org/download/) - Herramienta de administración de datos (Herramienta de postgres)
-- [Java 11](https://www.oracle.com/ar/java/technologies/javase/jdk11-archive-downloads.html) - Lenguaje de programacion
+- [Pgadmin 4](https://www.pgadmin.org/download/) - Herramienta de administración de datos (Herramienta de mysql)
+- [Java 11](https://www.oracle.com/ar/java/technologies/javase/jdk11-archive-downloads.html) - Lenguaje de programación
 - [Maven 4.0.0](https://maven.apache.org/index.html) - Manejador de dependencias
 - [Spring-Boot](https://spring.io/projects/spring-boot) - Framework
 To test the application [Swagger](http://localhost:8080/swagger-ui/index.html)
 
 ### Linkedin 
-- :robot:[Tomás](https://www.linkedin.com/in/padillatom/)
-- :space_invader:[Abel](https://www.linkedin.com/in/abel-fernando-acevedo/)
-- :brain:[Gabriel](https://www.linkedin.com/in/gabriel-navarro-233388219/)
+- :robot:[Tomás Padila](https://www.linkedin.com/in/padillatom/)
+- :space_invader:[Abel Acevedo](https://www.linkedin.com/in/abel-fernando-acevedo/)
+- :brain:[Gabriel Navarro](https://www.linkedin.com/in/gabriel-navarro-233388219/)
 
 USERS SEED
 <table>
